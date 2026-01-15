@@ -18,7 +18,10 @@ export default function SportDetail() {
       <div className="sport-detail-container">
         <div className="sport-not-found">
           <h1>Sport Not Found</h1>
-          <p>The sport you're looking for doesn't exist or rules are not available yet.</p>
+          <p>
+            The sport you're looking for doesn't exist or rules are not
+            available yet.
+          </p>
           <Button onClick={() => navigate("/")}>Back to Home</Button>
         </div>
       </div>
@@ -31,7 +34,9 @@ export default function SportDetail() {
       <section className="sport-hero">
         <div className="sport-hero-content">
           <div className="sport-breadcrumb">
-            <span onClick={() => navigate("/")} className="breadcrumb-link">Home</span>
+            <span onClick={() => navigate("/")} className="breadcrumb-link">
+              Home
+            </span>
             <span className="breadcrumb-separator">/</span>
             <span className="breadcrumb-current">{rules.name}</span>
           </div>
@@ -52,7 +57,9 @@ export default function SportDetail() {
         <div className="eligibility-grid">
           {Object.entries(rules.eligibility).map(([key, value]) => (
             <div key={key} className="eligibility-card">
-              <div className="eligibility-label">{key.charAt(0).toUpperCase() + key.slice(1)}</div>
+              <div className="eligibility-label">
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </div>
               <div className="eligibility-value">{value}</div>
             </div>
           ))}
@@ -111,18 +118,17 @@ export default function SportDetail() {
       <section className="sport-cta-section">
         <div className="cta-content">
           <h2 className="cta-title">Ready to Compete?</h2>
-          <p className="cta-description">Register now and showcase your skills in {rules.name}!</p>
+          <p className="cta-description">
+            Register now and showcase your skills in {rules.name}!
+          </p>
           <div className="cta-buttons">
-            <Button 
-              className="register-btn" 
+            <Button
+              className="register-btn"
               onClick={() => navigate("/register")}
             >
               Register Now
             </Button>
-            <Button 
-              className="back-btn" 
-              onClick={() => navigate("/")}
-            >
+            <Button className="back-btn" onClick={() => navigate("/")}>
               Back to Sports
             </Button>
           </div>

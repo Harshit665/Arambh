@@ -20,9 +20,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 150, 55, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255, 120, 40, 0.1) 0%, transparent 40%);
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 150, 55, 0.15) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 120, 40, 0.1) 0%,
+      transparent 40%
+    );
   pointer-events: none;
 }
 
@@ -130,7 +137,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(34, 20, 96, 0.92) 0%, rgba(23, 12, 70, 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 20, 96, 0.92) 0%,
+    rgba(23, 12, 70, 0.92) 100%
+  );
   border-radius: 14px;
   border: 2px solid rgba(255, 150, 55, 0.8);
   box-shadow: 0 0 20px rgba(255, 120, 40, 0.3);
@@ -163,7 +174,11 @@
 }
 
 .eligibility-card {
-  background: linear-gradient(180deg, rgba(34, 20, 96, 0.8) 0%, rgba(23, 12, 70, 0.8) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 20, 96, 0.8) 0%,
+    rgba(23, 12, 70, 0.8) 100%
+  );
   border: 2px solid rgba(255, 150, 55, 0.5);
   border-radius: 14px;
   padding: 24px;
@@ -209,7 +224,11 @@
 }
 
 .rule-category {
-  background: linear-gradient(180deg, rgba(34, 20, 96, 0.7) 0%, rgba(23, 12, 70, 0.7) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 20, 96, 0.7) 0%,
+    rgba(23, 12, 70, 0.7) 100%
+  );
   border: 2px solid rgba(255, 150, 55, 0.4);
   border-radius: 14px;
   padding: 28px;
