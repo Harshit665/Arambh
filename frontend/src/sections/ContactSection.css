@@ -1,0 +1,150 @@
+.contactSection {
+  width: 100%;
+  padding: 64px 18px 86px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contactSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      1200px 480px at 50% 0%,
+      rgba(255, 255, 255, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at 10% 20%,
+      rgba(255, 178, 74, 0.08),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 520px at 90% 30%,
+      rgba(140, 255, 170, 0.08),
+      transparent 55%
+    );
+}
+
+.contactSection::after {
+  content: "";
+  position: absolute;
+  inset: -40px -40px;
+  pointer-events: none;
+  background: linear-gradient(
+      110deg,
+      transparent 0 40%,
+      rgba(255, 140, 30, 0.55) 45%,
+      transparent 50%
+    ),
+    linear-gradient(
+      70deg,
+      transparent 0 65%,
+      rgba(140, 255, 170, 0.55) 70%,
+      transparent 75%
+    ),
+    linear-gradient(
+      120deg,
+      transparent 0 80%,
+      rgba(255, 140, 30, 0.45) 83%,
+      transparent 86%
+    );
+  opacity: 0.25;
+  filter: blur(0.2px);
+}
+
+.contactInner {
+  width: min(1024px, 90%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contactHeader {
+  text-align: center;
+  margin: 0 auto 22px;
+}
+
+.contactTitle {
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 900;
+  font-size: clamp(34px, 6vw, 58px);
+  letter-spacing: 1px;
+  line-height: 1.05;
+
+  transform: skewX(-10deg);
+  text-shadow: 0 5px 0 rgba(0, 0, 0, 0.35), 0 20px 42px rgba(0, 0, 0, 0.3);
+  -webkit-text-stroke: 1.3px rgba(0, 0, 0, 0.26);
+}
+
+.contactSubtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(13px, 1.8vw, 18px);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.contactGrid .profileCard {
+  width: 100%;
+}
+
+/* Keep cards compact so 4-per-row stays clean */
+.contactGrid .profileCard {
+  padding: 14px;
+  border-radius: 16px;
+}
+
+.contactGrid .profileCardInner {
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.contactGrid .profileName {
+  font-size: 18px;
+}
+
+.contactGrid .profileRole {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.contactGrid .profileIconBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+}
+
+.contactGrid .profileIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.contactGrid .profileSocials {
+  gap: 10px;
+}
+
+@media (max-width: 1200px) {
+  .contactGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .contactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}

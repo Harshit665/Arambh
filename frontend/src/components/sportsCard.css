@@ -1,0 +1,102 @@
+.sportsCard {
+  width: 100%;
+  border-radius: 18px;
+  padding: 18px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(34, 20, 96, 0.92) 0%,
+    rgba(23, 12, 70, 0.92) 100%
+  );
+
+  border: 2px solid rgba(255, 150, 55, 0.95);
+  box-shadow: 0 0 0 2px rgba(255, 120, 40, 0.18) inset,
+    0 0 26px rgba(255, 120, 40, 0.25), 0 18px 42px rgba(0, 0, 0, 0.42);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle inner panel look */
+.sportsCardInner {
+  border-radius: 14px;
+  padding: 20px 18px;
+  background: radial-gradient(
+      120% 120% at 50% 0%,
+      rgba(70, 50, 160, 0.34) 0%,
+      rgba(0, 0, 0, 0) 55%
+    ),
+    linear-gradient(180deg, rgba(30, 16, 88, 0.72), rgba(24, 14, 72, 0.78));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sportsFaIcon {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 10px;
+  color: rgba(255, 255, 255, 0.96);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+
+.sportsPngIcon {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 10px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+
+.sportsCard .sportsTitle {
+  margin: 10px 0 4px;
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  line-height: 1.05;
+
+  transform: skewX(-10deg);
+
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 12px 22px rgba(0, 0, 0, 0.22);
+
+  -webkit-text-stroke: 1.2px rgba(0, 0, 0, 0.25);
+}
+
+.sportsMeta {
+  margin: 0 0 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* reuse the main Button but scale it down for the card */
+.sportsCardCta {
+  transform: scale(0.62) skewX(-20deg);
+  transform-origin: center;
+}
+
+.sportsCardCta .ctaText {
+  font-size: 18px;
+  transform: skewX(-2deg);
+}
+
+@media (max-width: 520px) {
+  .sportsCard .sportsTitle {
+    font-size: 22px;
+  }
+
+  .sportsFaIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .sportsPngIcon {
+    width: 48px;
+    height: 48px;
+  }
+}

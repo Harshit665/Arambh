@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root {
+  --app-bg: url("./assets/bg.png");
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-image: var(--app-bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

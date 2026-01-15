@@ -2,7 +2,7 @@
 const crypto = require('crypto');
 const Payment = require('../models/Payment');
 const Registration = require('../models/Registration');
-const { instance } = require('../config/razorpay');
+const { getRazorpayInstance } = require('../config/razorpay');
 const { uploadToCloudinary } = require('../middleware/upload');
 
 // Generate unique registration ID
@@ -16,6 +16,15 @@ const generateRegistrationId = (sportId) => {
 // POST /api/payment/create-order - Create Razorpay order
 const createOrder = async (req, res) => {
     try {
+        const instance = getRazorpayInstance();
+        if (!instance) {
+            return res.status(500).json({
+                success: false,
+                message:
+                    'Payments are not configured on the server (missing RAZORPAY_KEY/RAZORPAY_SECRET).',
+            });
+        }
+
         const { amount, name, email, mobileNo, sportId, sportName, aadharNo } = req.body;
 
         // Validate required fields
@@ -71,7 +80,7 @@ const createOrder = async (req, res) => {
                 amount: order.amount,
                 currency: order.currency,
             },
-            key: process.env.RAZORPAY_KEY,
+            key: process.env.RAZORPAY_KEY || process.env.RAZORPAY_KEY_ID,
         });
 
     } catch (error) {
@@ -86,6 +95,15 @@ const createOrder = async (req, res) => {
 // POST /api/payment/verify - Verify payment and complete registration
 const verifyPayment = async (req, res) => {
     try {
+        const razorpaySecret = process.env.RAZORPAY_SECRET || process.env.RAZORPAY_KEY_SECRET;
+        if (!razorpaySecret) {
+            return res.status(500).json({
+                success: false,
+                message:
+                    'Payments are not configured on the server (missing RAZORPAY_SECRET).',
+            });
+        }
+
         const {
             razorpay_order_id,
             razorpay_payment_id,
@@ -98,7 +116,7 @@ const verifyPayment = async (req, res) => {
         // Verify signature
         const body = razorpay_order_id + '|' + razorpay_payment_id;
         const expectedSignature = crypto
-            .createHmac('sha256', process.env.RAZORPAY_SECRET)
+            .createHmac('sha256', razorpaySecret)
             .update(body.toString())
             .digest('hex');
 
