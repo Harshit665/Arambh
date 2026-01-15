@@ -4,6 +4,12 @@
   --app-bg: url("./assets/bg.png");
 }
 
+@media (max-width: 768px) {
+  :root {
+    --app-bg: url("./assets/mobile-bg.png");
+  }
+}
+
 html,
 body {
   height: 100%;

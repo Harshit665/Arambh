@@ -29,6 +29,14 @@
   text-wrap: nowrap;
 }
 
+.heroTitleMobile {
+  display: none;
+}
+
+.heroSubtitleMobile {
+  display: none;
+}
+
 .heroSubtitle {
   margin: 0 0 26px;
   color: rgba(255, 255, 255, 0.78);
@@ -117,6 +125,18 @@
 
   .heroTitle {
     letter-spacing: 0.4px;
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .heroTitleDesktop,
+  .heroSubtitleDesktop {
+    display: none;
+  }
+
+  .heroTitleMobile,
+  .heroSubtitleMobile {
+    display: inline;
   }
 }
 

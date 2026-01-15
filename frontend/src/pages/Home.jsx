@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
 
+  const [heroTitlePrimary, heroTitleSecondary] = homeHero.title.split(/:\s*/);
+  const [heroSubPrimary, heroSubSecondary] =
+    homeHero.subtitle.split(/Fest\.\s*/);
+
   return (
     <div className="home">
       <section className="hero" aria-label="Home hero">
@@ -32,8 +36,22 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <h1 className="heroTitle">{homeHero.title}</h1>
-          <p className="heroSubtitle">{homeHero.subtitle}</p>
+          <h1 className="heroTitle">
+            <span className="heroTitleDesktop">{homeHero.title}</span>
+            <span className="heroTitleMobile" aria-hidden="true">
+              {heroTitlePrimary}:
+              <br />
+              {heroTitleSecondary}
+            </span>
+          </h1>
+          <p className="heroSubtitle">
+            <span className="heroSubtitleDesktop">{homeHero.subtitle}</span>
+            <span className="heroSubtitleMobile" aria-hidden="true">
+              {heroSubPrimary}Fest.
+              <br />
+              {heroSubSecondary}
+            </span>
+          </p>
 
           <div className="heroCtaRow">
             <Button onClick={() => navigate("/register")}>
