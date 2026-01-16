@@ -169,6 +169,9 @@
 .heroCtaRow {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
   margin: 26px 0 22px;
   animation: fadeInUp 1s ease-out 0.5s backwards;
 }

@@ -7,12 +7,21 @@ export default function Button({
   onClick,
   type = "button",
   className = "",
+  variant = "primary",
   ...props
 }) {
+  const buttonClasses = [
+    "ctaButton",
+    variant === "outline" ? "ctaButtonOutline" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <button
       type={type}
-      className={["ctaButton", className].filter(Boolean).join(" ")}
+      className={buttonClasses}
       onClick={onClick}
       {...props}
     >

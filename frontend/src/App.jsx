@@ -8,6 +8,7 @@ import SportDetail from "./pages/SportDetail/SportDetail";
 import AllSports from "./pages/AllSports/AllSports";
 import FeesAwards from "./pages/FeesAwards/FeesAwards";
 import Committee from "./pages/Committee/Committee";
+import Rules from "./pages/Rules/Rules";
 import Footer from "./components/Footer";
 
 function ScrollToHash() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/sport/:sportId" element={<SportDetail />} />
         <Route path="/fees-awards" element={<FeesAwards />} />
         <Route path="/committee" element={<Committee />} />
+        <Route path="/rules" element={<Rules />} />
       </Routes>
       <Footer />
     </>

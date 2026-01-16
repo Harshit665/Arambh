@@ -137,6 +137,9 @@ export default function Home() {
             <Button onClick={() => navigate("/register")}>
               {homeHero.ctaText}
             </Button>
+            <Button onClick={() => navigate("/rules")}>
+              Rules & Regulations
+            </Button>
           </div>
 
           <p className="heroStatus">
