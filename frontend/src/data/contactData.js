@@ -8,7 +8,7 @@ export const contactPage = {
 export const contactCards = [
   {
     key: "convenor",
-    name: "Deepak Gupta",
+    name: "Dr. Deepak Gupta",
     role: "Convenor",
     imageSrc: deepakGupta,
   },
