@@ -12,8 +12,24 @@ const paymentRoutes = require('./routes/payment');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const frontendUrl = ["https://www.aagaaz.online","https://aagaaz.online","http://localhost:5173"]
+
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: function (origin, callback) {
+      // allow server-to-server or Postman requests
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // IMPORTANT if using cookies / auth
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
