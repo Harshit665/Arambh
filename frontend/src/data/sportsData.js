@@ -128,7 +128,7 @@ export const sportsData = [
         description: 'Singles - Individual participation',
         hasSubTypes: true,
         subTypes: [
-          { id: 'carrom_singles', name: 'Singles', type: SPORT_TYPES.SINGLES, teamSize: 1, fee: 100},
+          { id: 'carrom_singles', name: 'Carrom', type: SPORT_TYPES.SINGLES, teamSize: 1, fee: 100},
           // { id: 'carrom_doubles', name: 'Doubles', type: SPORT_TYPES.DOUBLES, teamSize: 2, fee: 100 },
         ],
       },

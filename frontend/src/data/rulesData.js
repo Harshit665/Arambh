@@ -454,8 +454,8 @@ export const sportRules = {
       {
         title: "Time Control",
         points: [
-          "Rapid chess format: 15 minutes per player",
-          "Time increment: +10 seconds per move (if applicable)",
+          "Time format: 5 minutes per player",
+          "No Time increment",
           "Clock must be pressed after each move",
           "Time runs out: Loss for that player",
         ]
@@ -467,6 +467,7 @@ export const sportRules = {
           "Touch-move rule: If you touch a piece, you must move it",
           "Castling, en passant, and promotion rules as per standard chess",
           "Player with white pieces moves first",
+          "In case of draw another 3 min game will be played"
         ]
       },
       {
