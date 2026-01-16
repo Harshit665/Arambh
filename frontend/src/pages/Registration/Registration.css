@@ -2,20 +2,18 @@
 
 .regPage {
   min-height: 100vh;
-  padding: 30px 20px;
+  padding: 28px 18px;
+  position: relative;
+  z-index: 2;
 }
 
 .regHeader {
   text-align: center;
   margin-bottom: 30px;
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 150, 55, 0.35);
-  border-radius: 16px;
+  padding: 10px 0 6px;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
 }
 
 .regLogo {
@@ -27,44 +25,55 @@
 }
 
 .regTitle {
-  font-size: 32px;
+  margin: 0 0 14px;
   font-weight: 900;
   color: rgba(255, 255, 255, 0.96);
-  margin-bottom: 8px;
+  font-size: clamp(30px, 9vw, 56px);
+  line-height: 1.02;
   transform: skewX(-10deg);
   text-shadow: 0 5px 0 rgba(0, 0, 0, 0.35), 0 20px 42px rgba(0, 0, 0, 0.3);
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.28);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-wrap: nowrap;
 }
 
 .regSubtitle {
+  margin: 0;
   color: rgba(255, 255, 255, 0.78);
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.4;
 }
 
 .regCard {
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 150, 55, 0.35);
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 20px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 26px;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
 }
 
 /* Sport Selector Styles */
-.sport-selector h2 {
-  font-size: 22px;
+.regPage .sport-selector h2 {
+  font-size: clamp(20px, 3vw, 26px);
   margin-bottom: 24px;
   color: rgba(255, 255, 255, 0.96);
-  font-weight: 600;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: skewX(-8deg);
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
 }
 
-.selector-field {
+.regPage .selector-field {
   margin-bottom: 20px;
 }
 
-.selector-field label {
+.regPage .selector-field label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
@@ -72,7 +81,7 @@
   font-size: 14px;
 }
 
-.selector-field select {
+.regPage .selector-field select {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid rgba(255, 150, 55, 0.35);
@@ -84,43 +93,100 @@
   transition: all 0.3s ease;
 }
 
-.selector-field select:focus {
+.regPage .selector-field select:focus {
   outline: none;
   border-color: #ffb24a;
   box-shadow: 0 0 0 3px rgba(255, 150, 55, 0.25);
 }
 
-.selector-field select option {
+.regPage .selector-field select option {
   background: #1a1a2e;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.selected-sport-card {
-  background: linear-gradient(135deg, #ffb24a 0%, #ff8e2f 50%, #f1771f 100%);
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 20px;
-  color: white;
+.regPage .selected-sport-card {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 150, 55, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.92);
+  position: relative;
+  overflow: hidden;
 }
 
-.selected-sport-card h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
+.regPage .selected-sport-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 20% 0%,
+    rgba(255, 178, 74, 0.25) 0%,
+    rgba(255, 142, 47, 0.08) 35%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  pointer-events: none;
 }
 
-.selected-sport-card p {
+.regPage .selected-sport-titleRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.regPage .selected-sport-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 900;
+  font-size: clamp(16px, 2.3vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transform: skewX(-8deg);
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+  line-height: 1.1;
+}
+
+.regPage .selected-sport-desc {
+  position: relative;
+  margin: 0;
   font-size: 14px;
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
 }
 
-.sport-type-badge {
+.regPage .selected-sport-meta {
+  position: relative;
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.regPage .selected-sport-fee {
+  position: relative;
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 150, 55, 0.28);
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffb24a;
+}
+
+.regPage .sport-type-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
+  background: rgba(255, 178, 74, 0.16);
+  border: 1px solid rgba(255, 178, 74, 0.42);
+  padding: 6px 10px;
+  border-radius: 8px;
   font-size: 12px;
-  margin-left: 10px;
-  font-weight: 500;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
 }
 
 /* Form Styles */
@@ -141,28 +207,44 @@
 .regPayBtn {
   width: 100%;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #ffb24a 0%, #ff8e2f 50%, #f1771f 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
+  background: linear-gradient(180deg, #ffb24a 0%, #ff8e2f 45%, #f1771f 100%);
+  color: #1c0f53;
+  border: 2px solid #d3651c;
+  border-radius: 14px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 150, 55, 0.4);
+  box-shadow: 0 8px 0 rgba(140, 60, 15, 0.95), 0 16px 24px rgba(0, 0, 0, 0.35);
   margin-top: 10px;
+  transform: skewX(-8deg);
 }
 
 .regPayBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 150, 55, 0.5);
+  transform: skewX(-8deg) translateY(-4px);
+  box-shadow: 0 12px 0 rgba(140, 60, 15, 0.95), 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+.regPayBtn:active {
+  transform: skewX(-8deg) translateY(2px);
+  box-shadow: 0 4px 0 rgba(140, 60, 15, 0.95), 0 10px 18px rgba(0, 0, 0, 0.3);
+}
+
+.regPayBtn:focus-visible,
+.regBackBtn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 4px;
 }
 
 .regPayBtn:disabled {
   background: linear-gradient(135deg, #a0a0a0 0%, #888 100%);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+  transform: skewX(-8deg);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.28), 0 16px 24px rgba(0, 0, 0, 0.18);
 }
 
 /* Back Button */
@@ -170,19 +252,30 @@
   display: block;
   width: fit-content;
   margin: 20px auto;
-  padding: 12px 24px;
+  padding: 14px 32px;
   background: transparent;
   color: #ffb24a;
-  border: 2px solid #ffb24a;
-  border-radius: 10px;
+  border: 3px solid #ffb24a;
+  border-radius: 14px;
   font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
+  transform: skewX(-8deg);
+  box-shadow: 0 8px 0 rgba(140, 60, 15, 0.6), 0 16px 24px rgba(0, 0, 0, 0.25);
 }
 
 .regBackBtn:hover {
-  background: #ffb24a;
-  color: #1a1a2e;
+  background: rgba(255, 178, 74, 0.1);
+  transform: skewX(-8deg) translateY(-4px);
+  box-shadow: 0 12px 0 rgba(140, 60, 15, 0.6), 0 20px 30px rgba(0, 0, 0, 0.3);
+}
+
+.regBackBtn:active {
+  transform: skewX(-8deg) translateY(2px);
+  box-shadow: 0 4px 0 rgba(140, 60, 15, 0.6), 0 10px 18px rgba(0, 0, 0, 0.2);
 }
 
 /* Team Note */
@@ -204,36 +297,8 @@
   font-size: 14px;
 }
 
-/* Input Styles */
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid rgba(255, 150, 55, 0.35);
-  border-radius: 10px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus {
-  outline: none;
-  border-color: #ffb24a;
-  box-shadow: 0 0 0 3px rgba(255, 150, 55, 0.25);
-}
-
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="tel"]::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
 /* File Input */
-input[type="file"] {
+.regPage input[type="file"] {
   padding: 12px;
   border: 2px dashed rgba(255, 150, 55, 0.35);
   border-radius: 10px;
@@ -244,13 +309,13 @@ input[type="file"] {
   color: rgba(255, 255, 255, 0.7);
 }
 
-input[type="file"]:hover {
+.regPage input[type="file"]:hover {
   border-color: #ffb24a;
   background: rgba(255, 150, 55, 0.1);
 }
 
 /* Remove Button */
-button[type="button"] {
+.regPage button[type="button"] {
   padding: 8px 16px;
   background: #ff8e2f;
   color: white;
@@ -261,6 +326,22 @@ button[type="button"] {
   transition: all 0.3s ease;
 }
 
-button[type="button"]:hover {
+.regPage button[type="button"]:hover {
   background: #f1771f;
+}
+
+@media (max-width: 520px) {
+  .regHeader {
+    padding: 6px 0 4px;
+  }
+
+  .regTitle {
+    white-space: normal;
+    text-wrap: balance;
+    letter-spacing: 0.4px;
+  }
+
+  .regPayBtn {
+    font-size: 14px;
+  }
 }

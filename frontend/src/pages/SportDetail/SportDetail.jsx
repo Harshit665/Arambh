@@ -54,53 +54,62 @@ export default function SportDetail() {
         <div className="section-header">
           <h2 className="section-title">Eligibility Criteria</h2>
         </div>
-        <div className="eligibility-grid">
+        <dl className="eligibility-list">
           {Object.entries(rules.eligibility).map(([key, value]) => (
-            <div key={key} className="eligibility-card">
-              <div className="eligibility-label">
+            <div key={key} className="eligibility-item">
+              <dt className="eligibility-label">
                 {key.charAt(0).toUpperCase() + key.slice(1)}
-              </div>
-              <div className="eligibility-value">{value}</div>
+              </dt>
+              <dd className="eligibility-value">{value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </section>
 
-      {/* Rules Section */}
-      <section className="sport-section rules-section">
-        <div className="section-header">
-          <h2 className="section-title">Rules & Regulations</h2>
-        </div>
-        <div className="rules-container">
-          {rules.rules.map((ruleCategory, index) => (
-            <div key={index} className="rule-category">
-              <h3 className="rule-category-title">
-                <span className="rule-number">{index + 1}</span>
-                {ruleCategory.title}
-              </h3>
-              <ul className="rule-points">
-                {ruleCategory.points.map((point, pointIndex) => (
-                  <li key={pointIndex} className="rule-point">
-                    {point}
-                  </li>
-                ))}
-              </ul>
+      {/* Rules + Penalties (single container) */}
+      <section className="sport-section rulesPenalties-section">
+        <div className="rulesPenaltiesPanel">
+          <div className="rulesPenaltiesBlock">
+            <div className="section-header rulesPenaltiesHeader">
+              <h2 className="section-title">Rules & Regulations</h2>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="rules-container">
+              {rules.rules.map((ruleCategory, index) => (
+                <div key={index} className="rule-category">
+                  <h3 className="rule-category-title">
+                    <span className="rule-number">{index + 1}.</span>
+                    {ruleCategory.title}
+                  </h3>
+                  <ul className="rule-points">
+                    {ruleCategory.points.map((point, pointIndex) => (
+                      <li key={pointIndex} className="rule-point">
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      {/* Penalties Section */}
-      <section className="sport-section penalties-section">
-        <div className="section-header">
-          <h2 className="section-title">Penalties & Violations</h2>
-        </div>
-        <div className="penalties-list">
-          {rules.penalties.map((penalty, index) => (
-            <div key={index} className="penalty-item">
-              <span className="penalty-text">{penalty}</span>
+          <div
+            className="rulesPenaltiesDivider"
+            role="separator"
+            aria-hidden="true"
+          />
+
+          <div className="rulesPenaltiesBlock">
+            <div className="section-header rulesPenaltiesHeader">
+              <h2 className="section-title">Penalties & Violations</h2>
             </div>
-          ))}
+            <ul className="penalties-list">
+              {rules.penalties.map((penalty, index) => (
+                <li key={index} className="penalty-item">
+                  {penalty}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -114,26 +123,20 @@ export default function SportDetail() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="sport-cta-section">
-        <div className="cta-content">
-          <h2 className="cta-title">Ready to Compete?</h2>
-          <p className="cta-description">
-            Register now and showcase your skills in {rules.name}!
-          </p>
-          <div className="cta-buttons">
-            <Button
-              className="register-btn"
-              onClick={() => navigate("/register")}
-            >
-              Register Now
-            </Button>
-            <Button className="back-btn" onClick={() => navigate("/")}>
-              Back to Sports
-            </Button>
-          </div>
-        </div>
-      </section>
+      <div className="sportActions" aria-label="Page actions">
+        <Button
+          className="sportActionPrimary"
+          onClick={() => navigate("/register")}
+        >
+          Register Now
+        </Button>
+        <Button
+          className="sportActionSecondary"
+          onClick={() => navigate("/sports")}
+        >
+          Back to Sports
+        </Button>
+      </div>
     </div>
   );
 }

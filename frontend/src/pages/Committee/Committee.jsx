@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./Committee.css";
 import { committeeData } from "../../data/committeeData";
-import Footer from "../../components/Footer";
 import ProfileCard from "../../components/profileCard";
 
 function ImageModal({ isOpen, imageSrc, name, onClose }) {
@@ -102,7 +101,6 @@ export default function Committee() {
           onImageClick={handleImageClick}
         />
       </section>
-      <Footer />
 
       <ImageModal
         isOpen={modalData.isOpen}

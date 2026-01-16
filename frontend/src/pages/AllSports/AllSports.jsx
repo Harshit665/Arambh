@@ -4,6 +4,15 @@ import Button from "../../components/Button";
 import "./AllSports.css";
 import { useEffect } from "react";
 
+const buildCategoryRows = (category) =>
+  category.sports.flatMap((sport) =>
+    sport.hasSubTypes &&
+    Array.isArray(sport.subTypes) &&
+    sport.subTypes.length > 0
+      ? sport.subTypes.map((subType) => ({ ...subType }))
+      : [{ ...sport }]
+  );
+
 export default function AllSports() {
   const navigate = useNavigate();
 
@@ -12,111 +21,91 @@ export default function AllSports() {
   }, []);
 
   return (
-    <div className="all-sports-container">
-      {/* Hero Section */}
-      <section className="all-sports-hero">
-        <div className="all-sports-hero-content">
-          <h1 className="all-sports-title">ALL SPORTS & EVENTS</h1>
-          <p className="all-sports-subtitle">
-            Explore all available sports categories and their detailed rules & regulations
-          </p>
-        </div>
-      </section>
-
-      {/* Sports Categories */}
-      <div className="all-sports-content">
-        {sportsData.map((category) => (
-          <section key={category.id} className="sport-category-section">
-            <div className="category-header">
-              <span className="category-icon">{category.icon}</span>
-              <div>
-                <h2 className="category-name">{category.name}</h2>
-                <p className="category-description">{category.description}</p>
-              </div>
-            </div>
-
-            <div className="sports-list">
-              {category.sports.map((sport) => (
-                <div key={sport.id} className="sport-item">
-                  <div className="sport-item-content">
-                    <h3 className="sport-item-name">{sport.name}</h3>
-                    <div className="sport-item-details">
-                      <span className="sport-detail-badge">
-                        {sport.type.toUpperCase().replace('_', ' ')}
-                      </span>
-                      <span className="sport-detail-badge">
-                        {sport.teamSize} {sport.teamSize === 1 ? 'Player' : 'Players'}
-                      </span>
-                      <span className="sport-detail-badge fee-badge">
-                        ₹{sport.fee}
-                      </span>
-                    </div>
-                    <p className="sport-item-description">{sport.description}</p>
-                    {sport.genderRestriction && (
-                      <span className="gender-restriction">
-                        {sport.genderRestriction === 'female' ? '👧 Girls Only' : '👦 Boys Only'}
-                      </span>
-                    )}
-                  </div>
-                  <Button
-                    className="view-rules-btn"
-                    onClick={() => navigate(`/sport/${sport.id}`)}
-                  >
-                    View Rules
-                  </Button>
-                </div>
-              ))}
-
-              {/* Handle sub-types (like Carrom Singles/Doubles) */}
-              {category.sports.some((sport) => sport.hasSubTypes) &&
-                category.sports
-                  .filter((sport) => sport.hasSubTypes)
-                  .map((sport) =>
-                    sport.subTypes.map((subType) => (
-                      <div key={subType.id} className="sport-item">
-                        <div className="sport-item-content">
-                          <h3 className="sport-item-name">{subType.name}</h3>
-                          <div className="sport-item-details">
-                            <span className="sport-detail-badge">
-                              {subType.type.toUpperCase().replace('_', ' ')}
-                            </span>
-                            <span className="sport-detail-badge">
-                              {subType.teamSize} {subType.teamSize === 1 ? 'Player' : 'Players'}
-                            </span>
-                            <span className="sport-detail-badge fee-badge">
-                              ₹{subType.fee}
-                            </span>
-                          </div>
-                        </div>
-                        <Button
-                          className="view-rules-btn"
-                          onClick={() => navigate(`/sport/${subType.id}`)}
-                        >
-                          View Rules
-                        </Button>
-                      </div>
-                    ))
-                  )}
-            </div>
-          </section>
-        ))}
-      </div>
-
-      {/* CTA Section */}
-      <section className="all-sports-cta">
-        <h2 className="cta-title">Ready to Register?</h2>
-        <p className="cta-description">
-          Choose your sport and register now to be part of the action!
+    <main className="allSportsPage">
+      <header className="allSportsHeader">
+        <h1 className="allSportsTitle">ALL SPORTS & EVENTS</h1>
+        <p className="allSportsSubtitle">
+          Explore sports categories and view rules & regulations
         </p>
-        <div className="cta-buttons">
-          <Button className="register-btn" onClick={() => navigate("/register")}>
+      </header>
+
+      <div className="allSportsContent">
+        {sportsData.map((category) => {
+          const rows = buildCategoryRows(category);
+
+          return (
+            <section key={category.id} className="allSportsCategory">
+              <div className="allSportsCategoryHeader">
+                <h2 className="allSportsCategoryName">{category.name}</h2>
+                <p className="allSportsCategoryDesc">{category.description}</p>
+              </div>
+
+              <div
+                className="sportsTableWrap"
+                role="region"
+                aria-label={`${category.name} events`}
+              >
+                <table className="sportsTable">
+                  <thead>
+                    <tr>
+                      <th scope="col">Event</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Team Size</th>
+                      <th scope="col">Fee</th>
+                      <th scope="col" className="sportsTableColAction">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((sport) => (
+                      <tr key={sport.id}>
+                        <td>
+                          <div className="sportsTableEventName">
+                            {sport.name}
+                          </div>
+                          {sport.genderRestriction && (
+                            <div className="sportsTableEventMeta">
+                              {sport.genderRestriction === "female"
+                                ? "Girls only"
+                                : "Boys only"}
+                            </div>
+                          )}
+                        </td>
+                        <td className="sportsTableType">
+                          {String(sport.type).toUpperCase().replace("_", " ")}
+                        </td>
+                        <td className="sportsTableTeam">
+                          {sport.teamSize}{" "}
+                          {sport.teamSize === 1 ? "Player" : "Players"}
+                        </td>
+                        <td className="sportsTableFee">₹{sport.fee}</td>
+                        <td className="sportsTableColAction">
+                          <Button
+                            className="sportsTableActionBtn"
+                            onClick={() => navigate(`/sport/${sport.id}`)}
+                          >
+                            View Rules
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          );
+        })}
+
+        <div className="allSportsFooterActions">
+          <Button
+            className="sportsPrimaryBtn"
+            onClick={() => navigate("/register")}
+          >
             Register Now
           </Button>
-          <Button className="home-btn" onClick={() => navigate("/")}>
-            Back to Home
-          </Button>
         </div>
-      </section>
-    </div>
+      </div>
+    </main>
   );
 }

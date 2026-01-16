@@ -8,6 +8,7 @@ import SportDetail from "./pages/SportDetail/SportDetail";
 import AllSports from "./pages/AllSports/AllSports";
 import FeesAwards from "./pages/FeesAwards/FeesAwards";
 import Committee from "./pages/Committee/Committee";
+import Footer from "./components/Footer";
 
 function ScrollToHash() {
   const location = useLocation();
@@ -52,6 +53,7 @@ function App() {
         <Route path="/fees-awards" element={<FeesAwards />} />
         <Route path="/committee" element={<Committee />} />
       </Routes>
+      <Footer />
     </>
   );
 }

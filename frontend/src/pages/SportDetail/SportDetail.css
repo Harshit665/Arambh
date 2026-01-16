@@ -3,6 +3,8 @@
 .sport-detail-container {
   min-height: 100vh;
   padding-bottom: 60px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Hero Section */
@@ -116,8 +118,8 @@
 
 /* Section Styles */
 .sport-section {
-  max-width: 1180px;
-  margin: 40px auto;
+  max-width: 980px;
+  margin: 26px auto;
   padding: 0 18px;
 }
 
@@ -125,9 +127,9 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 3px solid rgba(255, 150, 55, 0.4);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 150, 55, 0.28);
 }
 
 .section-icon {
@@ -154,42 +156,52 @@
   font-size: clamp(22px, 4vw, 32px);
   text-transform: uppercase;
   letter-spacing: 2px;
-  transform: skewX(-6deg);
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Eligibility Section */
-.eligibility-section {
-  background: linear-gradient(180deg, #1c0f53 0%, #221060 100%);
+/* Keep content simple: no big container boxes */
+.eligibility-section,
+.format-section {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* Rules + Penalties shared container */
+.rulesPenaltiesPanel {
+  background: linear-gradient(180deg, #29167741 0%, #21106075 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 178, 74, 0.32);
   border-radius: 18px;
-  padding: 32px;
-  border: 2px solid rgba(255, 150, 55, 0.6);
-  box-shadow: 0 0 30px rgba(255, 120, 40, 0.2), 0 20px 50px rgba(0, 0, 0, 0.4);
+  padding: 26px;
 }
 
-.eligibility-grid {
+.rulesPenaltiesHeader {
+  margin-bottom: 14px;
+}
+
+.rulesPenaltiesDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 26px 0;
+}
+
+.eligibility-list {
+  margin: 0;
+}
+
+.eligibility-item {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.eligibility-card {
-  background: linear-gradient(
-    180deg,
-    rgba(34, 20, 96, 0.8) 0%,
-    rgba(23, 12, 70, 0.8) 100%
-  );
-  border: 2px solid rgba(255, 150, 55, 0.5);
-  border-radius: 14px;
-  padding: 24px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 2px rgba(255, 120, 40, 0.1) inset;
-}
-
-.eligibility-card:hover {
-  transform: translateY(-6px);
-  border-color: #ffb24a;
-  box-shadow: 0 0 25px rgba(255, 120, 40, 0.4), 0 12px 30px rgba(0, 0, 0, 0.3);
+.eligibility-item:last-child {
+  border-bottom: none;
 }
 
 .eligibility-label {
@@ -197,8 +209,8 @@
   color: #ffb24a;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin-bottom: 8px;
   font-weight: 800;
+  margin: 0;
 }
 
 .eligibility-value {
@@ -206,17 +218,10 @@
   color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
   line-height: 1.6;
+  margin: 0;
 }
 
 /* Rules Section */
-.rules-section {
-  background: linear-gradient(180deg, #1c0f53 0%, #221060 100%);
-  border-radius: 18px;
-  padding: 32px;
-  border: 2px solid rgba(255, 150, 55, 0.6);
-  box-shadow: 0 0 30px rgba(255, 120, 40, 0.2), 0 20px 50px rgba(0, 0, 0, 0.4);
-}
-
 .rules-container {
   display: flex;
   flex-direction: column;
@@ -224,21 +229,15 @@
 }
 
 .rule-category {
-  background: linear-gradient(
-    180deg,
-    rgba(34, 20, 96, 0.7) 0%,
-    rgba(23, 12, 70, 0.7) 100%
-  );
-  border: 2px solid rgba(255, 150, 55, 0.4);
-  border-radius: 14px;
-  padding: 28px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 2px rgba(255, 120, 40, 0.08) inset;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 .rule-category:hover {
-  border-color: rgba(255, 150, 55, 0.7);
-  box-shadow: 0 0 20px rgba(255, 120, 40, 0.25);
+  box-shadow: none;
 }
 
 .rule-category-title {
@@ -251,28 +250,22 @@
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transform: skewX(-4deg);
+  transform: none;
 }
 
 .rule-number {
-  display: flex;
-  align-items: center;
+  display: inline-flex;
+  align-items: baseline;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  background: linear-gradient(180deg, #ffb24a 0%, #ff8e2f 45%, #f1771f 100%);
-  color: #1c0f53;
+  min-width: 28px;
+  color: #ffb24a;
   font-weight: 900;
-  border-radius: 10px;
   font-size: 18px;
-  border: 2px solid #d3651c;
-  box-shadow: 0 4px 0 rgba(140, 60, 15, 0.8);
-  transform: skewX(4deg);
 }
 
 .rule-points {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding-left: 18px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -280,83 +273,45 @@
 }
 
 .rule-point {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.7;
-  padding: 10px 14px;
-  background: rgba(255, 150, 55, 0.05);
-  border-radius: 10px;
-  border-left: 4px solid #ffb24a;
-  transition: all 0.2s ease;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
 .rule-point:hover {
   background: rgba(255, 150, 55, 0.12);
-  transform: translateX(6px);
 }
 
 /* Penalties Section */
-.penalties-section {
-  background: linear-gradient(180deg, #1c0f53 0%, #221060 100%);
-  border-radius: 18px;
-  padding: 32px;
-  border: 2px solid rgba(255, 150, 55, 0.6);
-  box-shadow: 0 0 30px rgba(255, 120, 40, 0.2), 0 20px 50px rgba(0, 0, 0, 0.4);
-}
-
-.penalties-section .section-header {
-  border-bottom-color: rgba(255, 150, 55, 0.4);
-}
-
 .penalties-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  display: grid;
+  gap: 10px;
 }
 
 .penalty-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px 20px;
-  background: rgba(255, 150, 55, 0.05);
-  border-left: 4px solid #ffb24a;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.penalty-item:hover {
-  background: rgba(255, 150, 55, 0.12);
-  transform: translateX(6px);
-}
-
-.penalty-text {
+  padding: 0;
+  border: none;
+  background: transparent;
   color: rgba(255, 255, 255, 0.9);
   font-size: 15px;
   line-height: 1.6;
 }
 
+.penalty-item:hover {
+  background: transparent;
+}
+
 /* Format Section */
-.format-section {
-  background: linear-gradient(180deg, #1c0f53 0%, #221060 100%);
-  border-radius: 18px;
-  padding: 32px;
-  border: 2px solid rgba(255, 150, 55, 0.6);
-  box-shadow: 0 0 30px rgba(255, 120, 40, 0.2), 0 20px 50px rgba(0, 0, 0, 0.4);
-}
-
-.format-section .section-header {
-  border-bottom-color: rgba(255, 150, 55, 0.4);
-}
-
 .format-content {
-  padding: 20px 24px;
-  background: rgba(255, 150, 55, 0.05);
-  border-radius: 12px;
-  border-left: 4px solid #ffb24a;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
 .format-description {
@@ -367,16 +322,97 @@
   font-weight: 600;
 }
 
+/* Minimal page actions */
+.sportActions {
+  max-width: 980px;
+  margin: 34px auto 10px;
+  padding: 0 18px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Button animations (scoped to this page) */
+.sportActions .ctaButton {
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  will-change: transform;
+  overflow: hidden;
+}
+
+.sportActions .ctaButton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 42%,
+    transparent 68%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sportActions .ctaButton:hover {
+  transform: skewX(-25deg) translateY(-2px);
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.35));
+}
+
+.sportActions .ctaButton:hover::after {
+  opacity: 1;
+  animation: sportDetailCtaShimmer 800ms ease;
+}
+
+.sportActions .ctaButton:active {
+  transform: skewX(-25deg) translateY(3px);
+}
+
+.sportActions .ctaButton:focus-visible {
+  outline: 3px solid rgba(255, 178, 74, 0.85);
+  outline-offset: 4px;
+}
+
+@keyframes sportDetailCtaShimmer {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.sportActionPrimary {
+  box-shadow: 0 10px 0 rgba(140, 60, 15, 0.95), 0 18px 22px rgba(0, 0, 0, 0.35);
+}
+
+.sportActionSecondary {
+  background: transparent;
+  color: #ffb24a;
+  border: 3px solid #ffb24a;
+  box-shadow: 0 8px 0 rgba(140, 60, 15, 0.6), 0 16px 24px rgba(0, 0, 0, 0.25);
+}
+
+.sportActionSecondary::before {
+  display: none;
+}
+
+.sportActionSecondary:hover {
+  background: rgba(255, 178, 74, 0.1);
+}
+
 /* CTA Section */
 .sport-cta-section {
   max-width: 1180px;
   margin: 50px auto 30px;
-  padding: 50px 32px;
-  background: linear-gradient(180deg, #1c0f53 0%, #221060 100%);
+  padding: 40px 28px;
+  background: rgba(0, 0, 0, 0.22);
   border-radius: 18px;
-  border: 2px solid rgba(255, 150, 55, 0.7);
+  border: 1px solid rgba(255, 150, 55, 0.35);
   text-align: center;
-  box-shadow: 0 0 40px rgba(255, 120, 40, 0.25), 0 24px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
 }
 
 .cta-content {
@@ -409,53 +445,20 @@
   flex-wrap: wrap;
 }
 
-.register-btn,
-.back-btn {
-  appearance: none;
-  padding: 16px 36px;
-  font-size: clamp(14px, 2vw, 18px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 14px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  transform: skewX(-8deg);
+/* CTA buttons use shared <Button/> (ctaButton) under the hood; override for a clean secondary option */
+.sportCtaPrimary {
+  box-shadow: 0 10px 0 rgba(140, 60, 15, 0.95), 0 18px 22px rgba(0, 0, 0, 0.35);
 }
 
-.register-btn {
-  background: linear-gradient(180deg, #ffb24a 0%, #ff8e2f 45%, #f1771f 100%);
-  color: #1c0f53;
-  border: 2px solid #d3651c;
-  box-shadow: 0 8px 0 rgba(140, 60, 15, 0.95), 0 16px 24px rgba(0, 0, 0, 0.35);
-}
-
-.register-btn:hover {
-  transform: skewX(-8deg) translateY(-4px);
-  box-shadow: 0 12px 0 rgba(140, 60, 15, 0.95), 0 20px 30px rgba(0, 0, 0, 0.4);
-}
-
-.register-btn:active {
-  transform: skewX(-8deg) translateY(2px);
-  box-shadow: 0 4px 0 rgba(140, 60, 15, 0.95), 0 10px 18px rgba(0, 0, 0, 0.3);
-}
-
-.back-btn {
+.sportCtaSecondary {
   background: transparent;
   color: #ffb24a;
   border: 3px solid #ffb24a;
   box-shadow: 0 8px 0 rgba(140, 60, 15, 0.6), 0 16px 24px rgba(0, 0, 0, 0.25);
 }
 
-.back-btn:hover {
+.sportCtaSecondary:hover {
   background: rgba(255, 178, 74, 0.1);
-  transform: skewX(-8deg) translateY(-4px);
-  box-shadow: 0 12px 0 rgba(140, 60, 15, 0.6), 0 20px 30px rgba(0, 0, 0, 0.3);
-}
-
-.back-btn:active {
-  transform: skewX(-8deg) translateY(2px);
-  box-shadow: 0 4px 0 rgba(140, 60, 15, 0.6), 0 10px 18px rgba(0, 0, 0, 0.2);
 }
 
 /* Sport Not Found */
@@ -494,15 +497,9 @@
     margin: 30px auto;
   }
 
-  .eligibility-section,
-  .rules-section,
-  .penalties-section,
-  .format-section {
-    padding: 24px 18px;
-  }
-
-  .eligibility-grid {
+  .eligibility-item {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
 
   .section-header {
@@ -517,10 +514,6 @@
     font-size: 22px;
   }
 
-  .rule-category {
-    padding: 20px 16px;
-  }
-
   .rule-category-title {
     flex-wrap: wrap;
   }
@@ -530,22 +523,14 @@
     padding: 8px 12px;
   }
 
-  .sport-cta-section {
-    margin: 40px 14px 20px;
-    padding: 36px 20px;
-  }
-
-  .cta-buttons {
+  .sportActions {
     flex-direction: column;
     align-items: center;
   }
 
-  .register-btn,
-  .back-btn {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-    justify-content: center;
+  .rulesPenaltiesPanel {
+    padding: 18px;
+    border-radius: 16px;
   }
 }
 
@@ -559,34 +544,7 @@
     font-size: 14px;
   }
 
-  .eligibility-section,
-  .rules-section,
-  .penalties-section,
-  .format-section {
-    padding: 20px 14px;
-    border-radius: 14px;
-  }
-
-  .eligibility-card {
-    padding: 18px;
-  }
-
-  .rule-category {
-    padding: 16px 12px;
-  }
-
   .rule-number {
-    width: 36px;
-    height: 36px;
     font-size: 16px;
-  }
-
-  .penalty-item {
-    padding: 12px 14px;
-  }
-
-  .sport-cta-section {
-    padding: 28px 16px;
-    border-radius: 14px;
   }
 }

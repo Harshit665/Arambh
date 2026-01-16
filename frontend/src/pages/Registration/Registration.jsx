@@ -1,13 +1,17 @@
 // Registration Page - Complete registration with sport selection, form, and Razorpay payment
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
-import SportSelector from '../../components/SportSelector';
-import FormInput from '../../components/FormInput';
-import FileUpload from '../../components/FileUpload';
-import { isTeamSport, getSportTypeLabel } from '../../data/sportsData';
-import { createPaymentOrder, verifyPaymentAndRegister, loadRazorpayScript } from '../../services/api';
-import './Registration.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import SportSelector from "../../components/SportSelector";
+import FormInput from "../../components/FormInput";
+import FileUpload from "../../components/FileUpload";
+import { isTeamSport, getSportTypeLabel } from "../../data/sportsData";
+import {
+  createPaymentOrder,
+  verifyPaymentAndRegister,
+  loadRazorpayScript,
+} from "../../services/api";
+import "./Registration.css";
 
 export default function Registration() {
   const navigate = useNavigate();
@@ -16,13 +20,13 @@ export default function Registration() {
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: '',
-    universityName: '',
-    branch: '',
-    teamName: '',
-    mobileNo: '',
-    email: '',
-    aadharNo: '',
+    name: "",
+    universityName: "",
+    branch: "",
+    teamName: "",
+    mobileNo: "",
+    email: "",
+    aadharNo: "",
     aadharPhoto: null,
   });
 
@@ -34,7 +38,7 @@ export default function Registration() {
     loadRazorpayScript().then((loaded) => {
       setRazorpayLoaded(loaded);
       if (!loaded) {
-        toast.error('Failed to load payment gateway');
+        toast.error("Failed to load payment gateway");
       }
     });
   }, []);
@@ -42,13 +46,13 @@ export default function Registration() {
   // Reset form when sport changes
   useEffect(() => {
     setFormData({
-      name: '',
-      universityName: '',
-      branch: '',
-      teamName: '',
-      mobileNo: '',
-      email: '',
-      aadharNo: '',
+      name: "",
+      universityName: "",
+      branch: "",
+      teamName: "",
+      mobileNo: "",
+      email: "",
+      aadharNo: "",
       aadharPhoto: null,
     });
     setErrors({});
@@ -61,12 +65,12 @@ export default function Registration() {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
-      setFormData(prev => ({ ...prev, [name]: files[0] || null }));
+      setFormData((prev) => ({ ...prev, [name]: files[0] || null }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -74,43 +78,43 @@ export default function Registration() {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     } else if (formData.name.trim().length < 3) {
-      newErrors.name = 'Name must be at least 3 characters';
+      newErrors.name = "Name must be at least 3 characters";
     }
 
     if (!formData.universityName.trim()) {
-      newErrors.universityName = 'University name is required';
+      newErrors.universityName = "University name is required";
     }
 
     if (!formData.branch.trim()) {
-      newErrors.branch = 'Branch is required';
+      newErrors.branch = "Branch is required";
     }
 
     if (showTeamField && !formData.teamName.trim()) {
-      newErrors.teamName = 'Team name is required';
+      newErrors.teamName = "Team name is required";
     }
 
     if (!formData.mobileNo.trim()) {
-      newErrors.mobileNo = 'Mobile number is required';
+      newErrors.mobileNo = "Mobile number is required";
     } else if (!/^[6-9]\d{9}$/.test(formData.mobileNo)) {
-      newErrors.mobileNo = 'Enter a valid 10 digit mobile number';
+      newErrors.mobileNo = "Enter a valid 10 digit mobile number";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Enter a valid email address';
+      newErrors.email = "Enter a valid email address";
     }
 
     if (!formData.aadharNo.trim()) {
-      newErrors.aadharNo = 'Aadhar number is required';
+      newErrors.aadharNo = "Aadhar number is required";
     } else if (!/^\d{12}$/.test(formData.aadharNo)) {
-      newErrors.aadharNo = 'Aadhar number must be 12 digits';
+      newErrors.aadharNo = "Aadhar number must be 12 digits";
     }
 
     if (!formData.aadharPhoto) {
-      newErrors.aadharPhoto = 'Please upload Aadhar card photo';
+      newErrors.aadharPhoto = "Please upload Aadhar card photo";
     }
 
     setErrors(newErrors);
@@ -123,7 +127,7 @@ export default function Registration() {
     if (!validateForm()) return;
 
     if (!razorpayLoaded) {
-      toast.error('Payment gateway not loaded. Please refresh.');
+      toast.error("Payment gateway not loaded. Please refresh.");
       return;
     }
 
@@ -142,7 +146,7 @@ export default function Registration() {
       });
 
       if (!orderResult.success) {
-        toast.error(orderResult.error || 'Failed to create order');
+        toast.error(orderResult.error || "Failed to create order");
         setIsLoading(false);
         return;
       }
@@ -152,7 +156,7 @@ export default function Registration() {
         key: orderResult.key,
         amount: orderResult.order.amount,
         currency: orderResult.order.currency,
-        name: 'AAGAAZ 2026',
+        name: "AAGAAZ 2026",
         description: `Registration for ${selectedSport.name}`,
         order_id: orderResult.order.id,
         prefill: {
@@ -160,7 +164,7 @@ export default function Registration() {
           email: formData.email,
           contact: formData.mobileNo,
         },
-        theme: { color: '#ffb24a' },
+        theme: { color: "#ffb24a" },
         handler: async function (response) {
           // Verify payment and register
           const verifyResult = await verifyPaymentAndRegister(
@@ -180,21 +184,21 @@ export default function Registration() {
           setIsLoading(false);
 
           if (verifyResult.success) {
-            toast.success('Payment Successful! Registration Complete.', {
+            toast.success("Payment Successful! Registration Complete.", {
               duration: 5000,
-              position: 'top-center',
+              position: "top-center",
             });
             setSelectedSport(null);
           } else {
-            if (verifyResult.error?.includes('already registered')) {
-              toast.error('This Aadhar is already registered!', {
+            if (verifyResult.error?.includes("already registered")) {
+              toast.error("This Aadhar is already registered!", {
                 duration: 5000,
-                position: 'top-center',
+                position: "top-center",
               });
             } else {
-              toast.error(verifyResult.error || 'Registration failed', {
+              toast.error(verifyResult.error || "Registration failed", {
                 duration: 5000,
-                position: 'top-center',
+                position: "top-center",
               });
             }
           }
@@ -202,9 +206,9 @@ export default function Registration() {
         modal: {
           ondismiss: function () {
             setIsLoading(false);
-            toast.error('Payment cancelled', {
+            toast.error("Payment cancelled", {
               duration: 3000,
-              position: 'top-center',
+              position: "top-center",
             });
           },
         },
@@ -212,10 +216,9 @@ export default function Registration() {
 
       const razorpay = new window.Razorpay(options);
       razorpay.open();
-
     } catch (error) {
-      console.error('Payment error:', error);
-      toast.error('Something went wrong. Please try again.');
+      console.error("Payment error:", error);
+      toast.error("Something went wrong. Please try again.");
       setIsLoading(false);
     }
   };
@@ -224,14 +227,14 @@ export default function Registration() {
     <main className="regPage">
       <Toaster
         toastOptions={{
-          success: { style: { background: '#10B981', color: 'white' } },
-          error: { style: { background: '#EF4444', color: 'white' } },
+          success: { style: { background: "#10B981", color: "white" } },
+          error: { style: { background: "#EF4444", color: "white" } },
         }}
       />
 
       <header className="regHeader">
-        <h1 className="regTitle">🏆 AAGAAZ 2026</h1>
-        <p className="regSubtitle">College Sports Event Registration</p>
+        <h1 className="regTitle">REGISTRATION </h1>
+        <p className="regSubtitle">AAGAAZ 2026</p>
       </header>
 
       <section className="regCard">
@@ -244,12 +247,15 @@ export default function Registration() {
       <section className="regCard">
         {!selectedSport ? (
           <div className="regPlaceholder">
-            <p>Please select a sport from above to continue with registration</p>
+            <p>
+              Please select a sport from above to continue with registration
+            </p>
           </div>
         ) : (
           <form onSubmit={handlePayment}>
             <h3 className="formTitle">
-              Registration Form - {selectedSport.name} ({getSportTypeLabel(selectedSport.type)})
+              Registration Form - {selectedSport.name} (
+              {getSportTypeLabel(selectedSport.type)})
             </h3>
 
             <FormInput
@@ -258,7 +264,9 @@ export default function Registration() {
               type="text"
               value={formData.name}
               onChange={handleChange}
-              placeholder={showTeamField ? "Enter captain's name" : "Enter your name"}
+              placeholder={
+                showTeamField ? "Enter captain's name" : "Enter your name"
+              }
               required
               error={errors.name}
               maxLength={50}
@@ -337,11 +345,17 @@ export default function Registration() {
               required
               error={errors.aadharNo}
               maxLength={12}
-              helpText={showTeamField ? "Captain's Aadhar number" : "Your Aadhar number"}
+              helpText={
+                showTeamField ? "Captain's Aadhar number" : "Your Aadhar number"
+              }
             />
 
             <FileUpload
-              label={showTeamField ? "Captain's Aadhar Card Photo" : "Aadhar Card Photo"}
+              label={
+                showTeamField
+                  ? "Captain's Aadhar Card Photo"
+                  : "Aadhar Card Photo"
+              }
               name="aadharPhoto"
               onChange={handleChange}
               required
@@ -349,25 +363,20 @@ export default function Registration() {
             />
 
             <button type="submit" className="regPayBtn" disabled={isLoading}>
-              {isLoading ? 'Processing...' : `Pay ₹${selectedSport.fee} & Register`}
+              {isLoading
+                ? "Processing..."
+                : `Pay ₹${selectedSport.fee} & Register`}
             </button>
 
             {showTeamField && (
               <p className="teamNote">
-                Note: Team consists of {selectedSport.teamSize} players. Only captain's details are required now.
+                Note: Team consists of {selectedSport.teamSize} players. Only
+                captain's details are required now.
               </p>
             )}
           </form>
         )}
       </section>
-
-      <button className="regBackBtn" onClick={() => navigate('/')}>
-        Back to Home
-      </button>
-
-      <footer className="regFooter">
-        <p>© 2026 AAGAAZ Sports Event</p>
-      </footer>
     </main>
   );
 }
