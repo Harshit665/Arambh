@@ -122,7 +122,7 @@ const getRegistrationEmailHTML = (data) => {
           <tr>
             <td style="background: rgba(0,0,0,0.3); padding: 25px 30px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
               <p style="margin: 0 0 10px; color: rgba(255,255,255,0.5); font-size: 13px;">
-                © 2026 AAGAAZ - University of Rajasthan
+                © 2026 AAGAAZ - University of Lucknow
               </p>
               <p style="margin: 0; color: rgba(255,255,255,0.4); font-size: 12px;">
                 Play, Progress, Prosper

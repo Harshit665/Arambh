@@ -14,21 +14,20 @@ const generateRegistrationId = (sportId) => {
     return `ARMBH-${sportCode}-${timestamp}-${random}`;
 };
 
-// POST /api/payment/create-order - Create Razorpay order
+// POST /api/payment/create-order - Create Razorpay order (NO DB entry here)
 const createOrder = async (req, res) => {
     try {
         const instance = getRazorpayInstance();
         if (!instance) {
             return res.status(500).json({
                 success: false,
-                message:
-                    'Payments are not configured on the server (missing RAZORPAY_KEY/RAZORPAY_SECRET).',
+                message: 'Payments are not configured on the server.',
             });
         }
 
         const { amount, name, email, mobileNo, sportId, sportName, aadharNo } = req.body;
 
-        // Validate required fields
+        // Validate required fields only
         if (!amount || !name || !email || !mobileNo || !sportId || !sportName || !aadharNo) {
             return res.status(400).json({
                 success: false,
@@ -36,43 +35,19 @@ const createOrder = async (req, res) => {
             });
         }
 
-        // Check if Aadhar is already registered BEFORE taking payment
-        const existingRegistration = await Registration.findOne({ aadharNo });
-        if (existingRegistration) {
-            return res.status(400).json({
-                success: false,
-                message: 'This Aadhar is already registered!',
-            });
-        }
+        // NO AADHAR/EMAIL VALIDATION - Allow multiple registrations
 
-        // Create Razorpay order
+        // Create Razorpay order (NO DB entry here - only after successful payment)
         const options = {
-            amount: amount * 100, // Amount in paise
+            amount: amount * 100,
             currency: 'INR',
             receipt: `receipt_${Date.now()}`,
-            notes: {
-                sportId,
-                sportName,
-                name,
-                email,
-            },
+            notes: { sportId, sportName, name, email, mobileNo, aadharNo, amount },
         };
 
         const order = await instance.orders.create(options);
 
-        // Save payment record
-        const payment = new Payment({
-            orderId: order.id,
-            amount: amount,
-            name,
-            email,
-            mobileNo,
-            sportId,
-            sportName,
-            status: 'created',
-        });
-
-        await payment.save();
+        // DON'T save payment here - only after successful verification
 
         res.status(201).json({
             success: true,
@@ -85,6 +60,7 @@ const createOrder = async (req, res) => {
         });
 
     } catch (error) {
+        console.error('Create order error:', error);
         res.status(500).json({
             success: false,
             message: 'Failed to create payment order',
@@ -99,18 +75,11 @@ const verifyPayment = async (req, res) => {
         if (!razorpaySecret) {
             return res.status(500).json({
                 success: false,
-                message:
-                    'Payments are not configured on the server (missing RAZORPAY_SECRET).',
+                message: 'Payments are not configured on the server.',
             });
         }
 
-        const {
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature,
-        } = req.body;
-
-        // Parse formData from JSON string
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
         const formData = JSON.parse(req.body.formData);
 
         // Verify signature
@@ -123,12 +92,7 @@ const verifyPayment = async (req, res) => {
         const isAuthentic = expectedSignature === razorpay_signature;
 
         if (!isAuthentic) {
-            // Update payment status to failed
-            await Payment.findOneAndUpdate(
-                { orderId: razorpay_order_id },
-                { status: 'failed' }
-            );
-
+            // Payment failed - NO DB entry
             return res.status(400).json({
                 success: false,
                 message: 'Payment verification failed',
@@ -165,19 +129,23 @@ const verifyPayment = async (req, res) => {
 
         await registration.save();
 
-        // Update payment with registration ID and get payment amount
-        const payment = await Payment.findOneAndUpdate(
-            { orderId: razorpay_order_id },
-            {
-                paymentId: razorpay_payment_id,
-                signature: razorpay_signature,
-                status: 'paid',
-                registrationId: registration._id,
-            },
-            { new: true }
-        );
+        // Create payment record ONLY after successful verification
+        const payment = new Payment({
+            orderId: razorpay_order_id,
+            paymentId: razorpay_payment_id,
+            signature: razorpay_signature,
+            amount: parseInt(formData.amount) || formData.fee || 100,
+            name: formData.name,
+            email: formData.email,
+            mobileNo: formData.mobileNo,
+            sportId: formData.sportId,
+            sportName: formData.sportName,
+            status: 'paid',
+            registrationId: registration._id,
+        });
+        await payment.save();
 
-        // Send confirmation email (async - don't block response)
+        // Send confirmation email
         sendRegistrationEmail({
             name: formData.name,
             email: formData.email,
@@ -186,25 +154,17 @@ const verifyPayment = async (req, res) => {
             teamName: formData.teamName,
             universityName: formData.universityName,
             registrationId: registration.registrationId,
-            amount: payment?.amount || formData.amount,
+            amount: payment.amount,
         }).catch(err => console.error('Email error:', err));
 
         res.status(200).json({
             success: true,
-            message: 'Payment successful! Registration completed. Confirmation email sent.',
+            message: 'Payment successful! Registration completed.',
             registrationId: registration.registrationId,
         });
 
     } catch (error) {
-
-        // Handle duplicate Aadhar
-        if (error.code === 11000 && error.keyPattern?.aadharNo) {
-            return res.status(400).json({
-                success: false,
-                message: 'This Aadhar number is already registered.',
-            });
-        }
-
+        console.error('Payment verification error:', error);
         res.status(500).json({
             success: false,
             message: 'Payment verification failed. Please contact support.',
@@ -225,10 +185,7 @@ const getPaymentStatus = async (req, res) => {
             });
         }
 
-        res.json({
-            success: true,
-            data: payment,
-        });
+        res.json({ success: true, data: payment });
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -237,8 +194,4 @@ const getPaymentStatus = async (req, res) => {
     }
 };
 
-module.exports = {
-    createOrder,
-    verifyPayment,
-    getPaymentStatus,
-};
+module.exports = { createOrder, verifyPayment, getPaymentStatus };
