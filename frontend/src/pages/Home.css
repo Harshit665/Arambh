@@ -410,12 +410,162 @@
   .heroEventDates,
   .heroLiveDot,
   .heroCtaRow button::before,
-  .heroEventDates::before {
+  .heroEventDates::before,
+  .liveScoresScroll {
     animation: none !important;
   }
 
   .fireBubblesContainer,
   .embersContainer {
     display: none;
+  }
+}
+
+/* ==================== LIVE SCORES TICKER ==================== */
+.liveScoresTicker {
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 10, 50, 0.9) 0%,
+    rgba(30, 15, 70, 0.95) 100%
+  );
+  border-top: 2px solid rgba(255, 150, 55, 0.4);
+  border-bottom: 2px solid rgba(255, 150, 55, 0.4);
+  overflow: visible;
+}
+
+.liveScoresHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.liveScoresLiveDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ff6b6b 0%,
+    #ff3333 50%,
+    #cc0000 100%
+  );
+  box-shadow: 0 0 0 3px rgba(255, 50, 50, 0.2),
+    0 0 12px rgba(255, 50, 50, 0.6);
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+.liveScoresTitle {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.liveScoresTrack {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.liveScoresScroll {
+  display: inline-flex;
+  gap: 50px;
+  white-space: nowrap;
+  animation: scrollLeft 25s linear infinite;
+  width: max-content;
+}
+
+.liveScoreItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 150, 55, 0.3);
+  border-radius: 30px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.liveScoresNote {
+  text-align: center;
+  margin: 14px 0 0;
+  color: rgba(255, 200, 100, 0.8);
+  font-size: 13px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 520px) {
+  .liveScoresTicker {
+    padding: 16px 0;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .liveScoresHeader {
+    display: flex;
+  }
+
+  .liveScoresTrack {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .liveScoresScroll {
+    display: flex;
+    gap: 30px;
+  }
+
+  .liveScoresTitle {
+    font-size: 14px;
+  }
+
+  .liveScoreItem {
+    padding: 6px 14px;
+    font-size: 12px;
+    min-width: max-content;
+  }
+
+  .liveScoresNote {
+    font-size: 11px;
+    padding: 0 14px;
+    display: block;
   }
 }

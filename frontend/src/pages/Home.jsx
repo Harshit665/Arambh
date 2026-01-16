@@ -148,6 +148,33 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* Live Scores Ticker */}
+      <section className="liveScoresTicker" aria-label="Live Scores">
+        <div className="liveScoresHeader">
+          <span className="liveScoresLiveDot" aria-hidden="true" />
+          <span className="liveScoresTitle">Live Scores</span>
+        </div>
+        <div className="liveScoresTrack">
+          <div className="liveScoresScroll">
+            <span className="liveScoreItem">🏏 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">⚽ Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏀 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏐 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏸 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🎾 Team 1 vs Team 2 - TBD</span>
+            {/* Duplicate for seamless loop */}
+            <span className="liveScoreItem">🏏 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">⚽ Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏀 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏐 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🏸 Team 1 vs Team 2 - TBD</span>
+            <span className="liveScoreItem">🎾 Team 1 vs Team 2 - TBD</span>
+          </div>
+        </div>
+        <p className="liveScoresNote">Live scores will be available when events are live</p>
+      </section>
+
       <ChiefGuest members={members} />
       <AagaazThinking />
 
