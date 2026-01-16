@@ -15,6 +15,19 @@ import ChiefGuest from "../sections/ChiefGuest";
 import vcSir from "../assets/chief-guest/vc-image.jpeg"
 import deanSir from "../assets/chief-guest/dean-sir.jpeg"
 import registrarMam from "../assets/chief-guest/registrar-mam.jpeg"
+import { useEffect, useMemo } from "react";
+
+// Generate fire bubbles data
+const generateFireBubbles = (count) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    size: Math.random() * 20 + 8,
+    left: Math.random() * 100,
+    delay: Math.random() * 5,
+    duration: Math.random() * 3 + 4,
+    hue: Math.random() * 40 + 10, // Orange to red hues
+  }));
+};
 
 const members = [
   {
@@ -39,6 +52,7 @@ const members = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const fireBubbles = useMemo(() => generateFireBubbles(25), []);
 
   const [heroTitlePrimary, heroTitleSecondary] = homeHero.title.split(/:\s*/);
   const [heroSubPrimary, heroSubSecondary] =
@@ -46,6 +60,42 @@ export default function Home() {
 
   return (
     <div className="home">
+      {/* Fire Bubbles Animation */}
+      <div className="fireBubblesContainer" aria-hidden="true">
+        {fireBubbles.map((bubble) => (
+          <div
+            key={bubble.id}
+            className="fireBubble"
+            style={{
+              width: `${bubble.size}px`,
+              height: `${bubble.size}px`,
+              left: `${bubble.left}%`,
+              animationDelay: `${bubble.delay}s`,
+              animationDuration: `${bubble.duration}s`,
+              background: `radial-gradient(circle at 30% 30%, 
+                hsl(${bubble.hue + 20}, 100%, 70%) 0%, 
+                hsl(${bubble.hue}, 100%, 50%) 50%, 
+                hsl(${bubble.hue - 10}, 100%, 30%) 100%)`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating Embers */}
+      <div className="embersContainer" aria-hidden="true">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="ember"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${Math.random() * 4 + 6}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <section className="hero" aria-label="Home hero">
         <div className="heroInner">
           <div className="heroSponsors" aria-label="Sponsors">

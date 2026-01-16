@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Committee.css";
 import { committeeData } from "../../data/committeeData";
 import Footer from "../../components/Footer";
@@ -13,12 +14,51 @@ function getInitials(name) {
   return (first + last).toUpperCase();
 }
 
-function CommitteeCard({ member }) {
+function ImageModal({ isOpen, imageSrc, name, onClose }) {
+  if (!isOpen) return null;
+
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="imageModalOverlay" onClick={handleBackdropClick}>
+      <div className="imageModalContent">
+        <button className="imageModalClose" onClick={onClose} aria-label="Close">
+          &times;
+        </button>
+        <img src={imageSrc} alt={name} className="imageModalImg" />
+        <p className="imageModalName">{name}</p>
+      </div>
+    </div>
+  );
+}
+
+function CommitteeCard({ member, onImageClick }) {
   const initials = getInitials(member.name);
+
+  const handleImageClick = () => {
+    if (member.image) {
+      onImageClick(member.image, member.name);
+    }
+  };
 
   return (
     <div className="committeeCard">
-      <div className="cardAvatar">
+      <div
+        className={`cardAvatar ${member.image ? "clickable" : ""}`}
+        onClick={handleImageClick}
+        role={member.image ? "button" : undefined}
+        tabIndex={member.image ? 0 : undefined}
+        onKeyDown={(e) => {
+          if (member.image && (e.key === "Enter" || e.key === " ")) {
+            e.preventDefault();
+            handleImageClick();
+          }
+        }}
+      >
         {member.image ? (
           <img src={member.image} alt={member.name} />
         ) : (
@@ -34,13 +74,13 @@ function CommitteeCard({ member }) {
   );
 }
 
-function CommitteeGroup({ title, members, className = "" }) {
+function CommitteeGroup({ title, members, className = "", onImageClick }) {
   return (
     <div className={`committeeGroup ${className}`}>
       <h2 className="groupTitle">{title}</h2>
       <div className="committeeCards">
         {members.map((member, index) => (
-          <CommitteeCard key={index} member={member} />
+          <CommitteeCard key={index} member={member} onImageClick={onImageClick} />
         ))}
       </div>
     </div>
@@ -48,6 +88,20 @@ function CommitteeGroup({ title, members, className = "" }) {
 }
 
 export default function Committee() {
+  const [modalData, setModalData] = useState({
+    isOpen: false,
+    imageSrc: "",
+    name: "",
+  });
+
+  const handleImageClick = (imageSrc, name) => {
+    setModalData({ isOpen: true, imageSrc, name });
+  };
+
+  const handleCloseModal = () => {
+    setModalData({ isOpen: false, imageSrc: "", name: "" });
+  };
+
   return (
     <main className="committeePage">
       <section className="committeeSection" aria-label="Committee">
@@ -60,27 +114,38 @@ export default function Committee() {
           title={committeeData.coreCommittee.title}
           members={committeeData.coreCommittee.members}
           className="coreGroup"
+          onImageClick={handleImageClick}
         />
 
         <CommitteeGroup
           title={committeeData.webTeam.title}
           members={committeeData.webTeam.members}
           className="webGroup"
+          onImageClick={handleImageClick}
         />
 
         <CommitteeGroup
           title={committeeData.executiveCommittee.title}
           members={committeeData.executiveCommittee.members}
           className="executiveGroup"
+          onImageClick={handleImageClick}
         />
 
         <CommitteeGroup
           title={committeeData.trainingTeam.title}
           members={committeeData.trainingTeam.members}
           className="trainingGroup"
+          onImageClick={handleImageClick}
         />
       </section>
       <Footer />
+
+      <ImageModal
+        isOpen={modalData.isOpen}
+        imageSrc={modalData.imageSrc}
+        name={modalData.name}
+        onClose={handleCloseModal}
+      />
     </main>
   );
 }
