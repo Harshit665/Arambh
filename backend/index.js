@@ -1,6 +1,7 @@
 // Main Server - Express app with MongoDB, Cloudinary, and Razorpay
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const connectDB = require('./config/dataBase');
@@ -19,6 +20,18 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes
 app.use('/api', registrationRoutes);
 app.use('/api/payment', paymentRoutes);
+
+// Serve frontend (Vite build) in production
+// This prevents 404s when refreshing on client-side routes (React Router).
+if (process.env.NODE_ENV === 'production') {
+    const frontendDistPath = path.join(__dirname, '..', 'frontend', 'dist');
+    app.use(express.static(frontendDistPath));
+
+    // Serve index.html for any non-API GET route
+    app.get(/^\/(?!api(?:\/|$)|health$).*/, (req, res) => {
+        res.sendFile(path.join(frontendDistPath, 'index.html'));
+    });
+}
 
 // Health check endpoint
 app.get('/health', (req, res) => {

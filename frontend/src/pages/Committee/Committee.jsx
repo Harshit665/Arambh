@@ -2,17 +2,7 @@ import { useState } from "react";
 import "./Committee.css";
 import { committeeData } from "../../data/committeeData";
 import Footer from "../../components/Footer";
-
-function getInitials(name) {
-  const parts = String(name || "")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  if (parts.length === 0) return "";
-  const first = parts[0]?.[0] ?? "";
-  const last = (parts.length > 1 ? parts[parts.length - 1]?.[0] : "") ?? "";
-  return (first + last).toUpperCase();
-}
+import ProfileCard from "../../components/profileCard";
 
 function ImageModal({ isOpen, imageSrc, name, onClose }) {
   if (!isOpen) return null;
@@ -26,49 +16,15 @@ function ImageModal({ isOpen, imageSrc, name, onClose }) {
   return (
     <div className="imageModalOverlay" onClick={handleBackdropClick}>
       <div className="imageModalContent">
-        <button className="imageModalClose" onClick={onClose} aria-label="Close">
+        <button
+          className="imageModalClose"
+          onClick={onClose}
+          aria-label="Close"
+        >
           &times;
         </button>
         <img src={imageSrc} alt={name} className="imageModalImg" />
         <p className="imageModalName">{name}</p>
-      </div>
-    </div>
-  );
-}
-
-function CommitteeCard({ member, onImageClick }) {
-  const initials = getInitials(member.name);
-
-  const handleImageClick = () => {
-    if (member.image) {
-      onImageClick(member.image, member.name);
-    }
-  };
-
-  return (
-    <div className="committeeCard">
-      <div
-        className={`cardAvatar ${member.image ? "clickable" : ""}`}
-        onClick={handleImageClick}
-        role={member.image ? "button" : undefined}
-        tabIndex={member.image ? 0 : undefined}
-        onKeyDown={(e) => {
-          if (member.image && (e.key === "Enter" || e.key === " ")) {
-            e.preventDefault();
-            handleImageClick();
-          }
-        }}
-      >
-        {member.image ? (
-          <img src={member.image} alt={member.name} />
-        ) : (
-          <div className="avatarFallback">{initials}</div>
-        )}
-      </div>
-      <div className="cardInfo">
-        <h3 className="cardName">{member.name}</h3>
-        <p className="cardRole">{member.role}</p>
-        <p className="cardDepartment">{member.department}</p>
       </div>
     </div>
   );
@@ -80,7 +36,15 @@ function CommitteeGroup({ title, members, className = "", onImageClick }) {
       <h2 className="groupTitle">{title}</h2>
       <div className="committeeCards">
         {members.map((member, index) => (
-          <CommitteeCard key={index} member={member} onImageClick={onImageClick} />
+          <ProfileCard
+            key={`${member.name}-${index}`}
+            name={member.name}
+            role={member.role}
+            meta={member.department}
+            imageSrc={member.image}
+            showSocials={false}
+            onImageClick={onImageClick}
+          />
         ))}
       </div>
     </div>

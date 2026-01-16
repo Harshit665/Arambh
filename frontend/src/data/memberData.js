@@ -17,26 +17,28 @@ import yatharth from "../assets/member-image/yatharth.jpg"
 import yogesh from "../assets/member-image/Yogesh.jpg"
 import harshit from "../assets/member-image/harshit.jpeg"
 import sagar from "../assets/member-image/sagar.jpeg"
+import amanSinghNishad from "../assets/member-image/amansingh.webp"
 
 
 export const memberImage = {
     aditya
-    ,adityaRanjan
-    ,aman
-    ,amritesh
-    ,anurag
-    ,ayushGupta
-    ,ayushSingh
-    ,ayushman
-    ,devansh
-    ,harshGupta
-    ,himanshu
-    ,omGupta
-    ,priyanshu
-    ,tushar
-    ,vishwas
-    ,yatharth
-    ,yogesh
-    ,harshit
-    ,sagar
+    , adityaRanjan
+    , amanSinghNishad
+    , aman
+    , amritesh
+    , anurag
+    , ayushGupta
+    , ayushSingh
+    , ayushman
+    , devansh
+    , harshGupta
+    , himanshu
+    , omGupta
+    , priyanshu
+    , tushar
+    , vishwas
+    , yatharth
+    , yogesh
+    , harshit
+    , sagar
 }

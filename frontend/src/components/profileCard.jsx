@@ -18,19 +18,40 @@ export default function ProfileCard({
   name = "John Doe",
   role = "Event Head",
   imageSrc,
+  meta,
   links = {
     linkedin: "#",
     twitter: "#",
     email: "#",
   },
+  showSocials = true,
+  onImageClick,
 }) {
   const initials = getInitials(name) || "JD";
+
+  const canClickImage = Boolean(onImageClick && imageSrc);
 
   return (
     <section className="profileCard" aria-label={name}>
       <div className="profileCardInner">
         <div className="profileMedia">
-          <div className="profilePhotoFrame">
+          <div
+            className={`profilePhotoFrame${
+              canClickImage ? " isClickable" : ""
+            }`}
+            onClick={
+              canClickImage ? () => onImageClick(imageSrc, name) : undefined
+            }
+            role={canClickImage ? "button" : undefined}
+            tabIndex={canClickImage ? 0 : undefined}
+            onKeyDown={(e) => {
+              if (!canClickImage) return;
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onImageClick(imageSrc, name);
+              }
+            }}
+          >
             {imageSrc ? (
               <img
                 className="profilePhoto"
@@ -49,26 +70,33 @@ export default function ProfileCard({
         <div className="profileBody">
           <h3 className="profileName">{name}</h3>
           <div className="profileRole">{role}</div>
+          {meta ? <div className="profileMeta">{meta}</div> : null}
 
-          <div className="profileSocials" aria-label="Social links">
-            <a
-              className="profileIconBtn"
-              href={links.linkedin}
-              aria-label="LinkedIn"
-            >
-              <FontAwesomeIcon className="profileIcon" icon={faLinkedinIn} />
-            </a>
-            <a
-              className="profileIconBtn"
-              href={links.twitter}
-              aria-label="Twitter"
-            >
-              <FontAwesomeIcon className="profileIcon" icon={faXTwitter} />
-            </a>
-            <a className="profileIconBtn" href={links.email} aria-label="Email">
-              <FontAwesomeIcon className="profileIcon" icon={faEnvelope} />
-            </a>
-          </div>
+          {showSocials && (
+            <div className="profileSocials" aria-label="Social links">
+              <a
+                className="profileIconBtn"
+                href={links.linkedin}
+                aria-label="LinkedIn"
+              >
+                <FontAwesomeIcon className="profileIcon" icon={faLinkedinIn} />
+              </a>
+              <a
+                className="profileIconBtn"
+                href={links.twitter}
+                aria-label="Twitter"
+              >
+                <FontAwesomeIcon className="profileIcon" icon={faXTwitter} />
+              </a>
+              <a
+                className="profileIconBtn"
+                href={links.email}
+                aria-label="Email"
+              >
+                <FontAwesomeIcon className="profileIcon" icon={faEnvelope} />
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

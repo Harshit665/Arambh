@@ -1,21 +1,17 @@
 import "./Home.css";
 import Button from "../components/Button";
 import { homeHero, homeSponsors } from "../data/homeData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import SportsSection from "../sections/SportsSection";
 import ScheduleSection from "../sections/ScheduleSection";
 import ContactSection from "../sections/ContactSection";
-import CommitteeSection from "../sections/CommitteeSection";
-import FeesSection from "../sections/FeesSection";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import AagaazThinking from "../sections/AagaazThinking";
 import ChiefGuest from "../sections/ChiefGuest";
-import vcSir from "../assets/chief-guest/vc-image.jpeg"
-import deanSir from "../assets/chief-guest/dean-sir.jpeg"
-import registrarMam from "../assets/chief-guest/registrar-mam.jpeg"
-import { useEffect, useMemo } from "react";
+import vcSir from "../assets/chief-guest/vc-image.jpeg";
+import deanSir from "../assets/chief-guest/dean-sir.jpeg";
+import registrarMam from "../assets/chief-guest/registrar-mam.jpeg";
+import { useMemo } from "react";
 
 // Generate fire bubbles data
 const generateFireBubbles = (count) => {
@@ -25,7 +21,7 @@ const generateFireBubbles = (count) => {
     left: Math.random() * 100,
     delay: Math.random() * 5,
     duration: Math.random() * 3 + 4,
-    hue: Math.random() * 40 + 10, // Orange to red hues
+    hue: Math.random() * 40 + 10,
   }));
 };
 
@@ -124,6 +120,7 @@ export default function Home() {
               {heroTitleSecondary}
             </span>
           </h1>
+
           <p className="heroSubtitle">
             <span className="heroSubtitleDesktop">{homeHero.subtitle}</span>
             <span className="heroSubtitleMobile" aria-hidden="true">
@@ -133,16 +130,15 @@ export default function Home() {
             </span>
           </p>
 
+          <p className="heroEventDates">
+            <span>{homeHero.eventDates}</span>
+          </p>
+
           <div className="heroCtaRow">
             <Button onClick={() => navigate("/register")}>
               {homeHero.ctaText}
             </Button>
           </div>
-
-          <p className="heroEventDates">
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            <span>{homeHero.eventDates}</span>
-          </p>
 
           <p className="heroStatus">
             <span>{homeHero.statusPrefix}</span>
@@ -150,8 +146,8 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <ChiefGuest members={members}/>
-      <AagaazThinking/>
+      <ChiefGuest members={members} />
+      <AagaazThinking />
 
       <SportsSection />
       <ScheduleSection />

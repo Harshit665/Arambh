@@ -9,12 +9,12 @@ export default function SportsSection() {
 
   // Map sport keys to sport IDs for navigation
   const sportKeyToId = {
-    basketball: 'basketball',
-    cricket: 'cricket',
-    football: 'football',
-    badminton: 'badminton_singles',
-    athletics: 'athletics_100m',
-    'athletics-5v5': 'athletics_longjump',
+    basketball: "basketball",
+    cricket: "cricket",
+    football: "football",
+    badminton: "badminton_singles",
+    athletics: "athletics_100m",
+    "athletics-5v5": "athletics_longjump",
   };
 
   const handleSportClick = (sportKey) => {
@@ -44,9 +44,25 @@ export default function SportsSection() {
               onCtaClick={() => handleSportClick(card.key)}
             />
           ))}
-        </div>
-        <div className="sportsMoreWrap">
-          <Button className="sportsMoreBtn" onClick={() => navigate('/sports')}>See More Sports</Button>
+
+          <section
+            className="sportsCard sportsMoreCard"
+            aria-label="See more sports"
+          >
+            <div className="sportsCardInner">
+              <h3 className="sportsTitle">SEE MORE SPORTS</h3>
+              <p className="sportsMeta">Browse the full list of events</p>
+
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  className="sportsCardCta"
+                  onClick={() => navigate("/sports")}
+                >
+                  SEE MORE SPORTS
+                </Button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>

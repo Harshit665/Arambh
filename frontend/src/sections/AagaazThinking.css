@@ -1,87 +1,92 @@
-.aagaaz-thinking-section {
-  position: relative;
+/* Aagaaz section - styled to match SportsSection patterns */
+.aagaazSection {
   width: 100%;
-  padding: 120px 20px;
-  background: radial-gradient(circle at top, #2b1369, #12062f 40%, #080414);
-  color: #e5e5e5;
-  overflow: hidden;
-  font-family: "Segoe UI", sans-serif;
+  margin-top: 10%;
 }
 
-.aagaaz-glow {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.4;
-}
-
-.aagaaz-glow-orange {
-  background: #ff8c00;
-  top: 50px;
-  left: 50px;
-}
-
-.aagaaz-glow-green {
-  background: #3cff8f;
-  bottom: 80px;
-  right: 60px;
-}
-
-.aagaaz-content {
-  max-width: 900px;
-  margin: auto;
+.aagaazHeader {
+  width: min(1180px, 100%);
+  margin: 0 auto;
   text-align: center;
-  position: relative;
-  z-index: 2;
+  padding: 34px 18px 26px;
 }
 
-.aagaaz-title {
-  font-size: 42px;
-  font-weight: 800;
+.aagaazTitle {
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 900;
+  font-size: clamp(30px, 6vw, 56px);
   letter-spacing: 1px;
-  margin-bottom: 40px;
+  line-height: 1.05;
+  transform: skewX(-10deg);
+  text-shadow: 0 5px 0 rgba(0, 0, 0, 0.35), 0 20px 42px rgba(0, 0, 0, 0.3);
+  -webkit-text-stroke: 1.3px rgba(0, 0, 0, 0.26);
 }
 
-.aagaaz-highlight {
-  display: block;
-  margin-top: 10px;
-  font-size: 56px;
-  color: #ff8c00;
-  text-shadow: 0 0 25px rgba(255, 140, 0, 0.6);
+.aagaazTitleAccent {
+  color: rgba(255, 170, 70, 0.98);
 }
 
-.aagaaz-content p {
-  font-size: 18px;
-  line-height: 1.8;
-  margin-bottom: 24px;
-  color: #d1d1d1;
+.aagaazSubtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(13px, 1.8vw, 18px);
 }
 
-.highlight-word {
-  color: #ff8c00;
-  font-weight: 600;
+.aagaazBodyWrap {
+  margin: 26px 0 0;
+  background: transparent;
+  padding: 70px 18px;
+  position: relative;
+  min-height: clamp(520px, 70vh, 780px);
+  display: flex;
+  align-items: center;
 }
 
-.legacy-line {
-  font-size: 20px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-top: 30px;
+.aagaazBody {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  position: relative;
+  min-height: clamp(360px, 46vh, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Glassmorphism container */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  padding: 26px 26px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .aagaaz-title {
-    font-size: 32px;
+.aagaazParagraph {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.aagaazHighlight {
+  color: rgba(255, 170, 70, 0.98);
+  font-weight: 800;
+}
+
+@media (max-width: 620px) {
+  .aagaazHeader {
+    padding: 26px 14px 20px;
   }
 
-  .aagaaz-highlight {
-    font-size: 42px;
+  .aagaazBody {
+    padding: 18px 14px;
   }
 
-  .aagaaz-content p {
+  .aagaazParagraph {
     font-size: 16px;
+    line-height: 1.8;
   }
 }

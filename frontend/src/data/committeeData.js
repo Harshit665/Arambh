@@ -4,7 +4,7 @@ import { memberImage } from "./memberData.js";
 export const committeeData = {
   title: "Organizing Committee",
   subtitle: "Meet the team behind AAGAAZ",
-  
+
   coreCommittee: {
     title: "Core Committee",
     members: [
@@ -43,31 +43,31 @@ export const committeeData = {
 
   webTeam: {
     title: "Web Team",
-    members: [
-      {
-        name: "Aditya Ranjan",
-        role: "Web Developer",
-        department: "CSE, 4th Year",
-        image: memberImage.adityaRanjan
-      },
-      {
-        name: "Aman Singh Nishad",
-        role: "Web Developer",
-        department: "CSE, 4th Year",
-        image: null
-      },
-      {
-        name: "Ayush Singh",
-        role: "Web Developer",
-        department: "CSE, 4th Year",
-        image: memberImage.ayushSingh
-      },
-      {
-        name: "Aman Chaurasiya",
-        role: "Web Developer",
-        department: "CSE, 3rd Year",
-        image: memberImage.aman
-      }
+    members: [{
+      name: "Aman Singh Nishad",
+      role: "Web Developer",
+      department: "CSE, 4th Year",
+      image: memberImage.amanSinghNishad
+    },
+    {
+      name: "Aditya Ranjan",
+      role: "Web Developer",
+      department: "CSE, 4th Year",
+      image: memberImage.adityaRanjan
+    },
+
+    {
+      name: "Ayush Singh",
+      role: "Web Developer",
+      department: "CSE, 4th Year",
+      image: memberImage.ayushSingh
+    },
+    {
+      name: "Aman Chaurasiya",
+      role: "Web Developer",
+      department: "CSE, 3rd Year",
+      image: memberImage.aman
+    }
     ]
   },
 
