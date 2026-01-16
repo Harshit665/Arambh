@@ -73,6 +73,10 @@ export default function Footer() {
           <div className="footerCopyright">
             © {year} {footerData.brand.name}. All rights reserved.
           </div>
+          <div className="footerDeveloper">
+            Developed with <span className="footerHeart">♥</span> by{" "}
+            <span className="footerTeamName">Team Hobiverse</span>
+          </div>
         </div>
       </div>
     </footer>

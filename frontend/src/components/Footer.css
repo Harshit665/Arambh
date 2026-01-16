@@ -132,13 +132,43 @@
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .footerCopyright {
   color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
   font-weight: 600;
+}
+
+.footerDeveloper {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.footerHeart {
+  color: #ff6b6b;
+  display: inline-block;
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.footerTeamName {
+  color: rgba(255, 178, 74, 0.9);
+  font-weight: 700;
 }
 
 @media (max-width: 880px) {
@@ -153,5 +183,11 @@
 
   .footerSocial {
     justify-content: center;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
   }
 }
