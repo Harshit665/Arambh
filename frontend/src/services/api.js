@@ -101,4 +101,18 @@ export const getAllRegistrations = async () => {
     }
 };
 
+// Warm up backend server
+export const warmupBackend = async () => {
+    try {
+        // Call health endpoint to wake up the server
+        
+        const baseUrl = api.defaults.baseURL.replace('/api', '');
+        await fetch(`${baseUrl}/health`, { method: 'GET' });
+        console.log('Backend warm-up initiated');
+    } catch (error) {
+        // Silently fail - this is just a warm-up call
+        console.log('Backend warm-up call sent');
+    }
+};
+
 export default api;

@@ -10,6 +10,7 @@ import {
   createPaymentOrder,
   verifyPaymentAndRegister,
   loadRazorpayScript,
+  warmupBackend,
 } from "../../services/api";
 import "./Registration.css";
 
@@ -33,8 +34,12 @@ export default function Registration() {
   const [errors, setErrors] = useState({});
   const showTeamField = selectedSport && isTeamSport(selectedSport.type);
 
-  // Load Razorpay script
+  // Load Razorpay script and warm up backend
   useEffect(() => {
+    // Warm up backend server (handles cold start on free-tier hosting)
+    // This runs silently while user fills the form
+    warmupBackend();
+
     loadRazorpayScript().then((loaded) => {
       setRazorpayLoaded(loaded);
       if (!loaded) {
