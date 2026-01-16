@@ -5,6 +5,7 @@ const Registration = require('../models/Registration');
 const { getRazorpayInstance } = require('../config/razorpay');
 const { uploadToCloudinary } = require('../middleware/upload');
 const { sendRegistrationEmail } = require('../config/resend');
+const { checkDuplicate, addToCache } = require('../config/aadharCache');
 
 // Generate unique registration ID
 const generateRegistrationId = (sportId) => {
@@ -36,12 +37,12 @@ const createOrder = async (req, res) => {
             });
         }
 
-        // Check if Aadhar is already registered BEFORE taking payment
-        const existingRegistration = await Registration.findOne({ aadharNo });
-        if (existingRegistration) {
+        // Check if Aadhar or Email is already registered (O(1) cache lookup - no DB call)
+        const duplicate = checkDuplicate(aadharNo, email);
+        if (duplicate.isDuplicate) {
             return res.status(400).json({
                 success: false,
-                message: 'This Aadhar is already registered!',
+                message: duplicate.message,
             });
         }
 
@@ -164,6 +165,9 @@ const verifyPayment = async (req, res) => {
         });
 
         await registration.save();
+
+        // Add new Aadhar and Email to cache for future lookups
+        addToCache(formData.aadharNo, formData.email);
 
         // Update payment with registration ID and get payment amount
         const payment = await Payment.findOneAndUpdate(

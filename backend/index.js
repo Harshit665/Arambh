@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const connectDB = require('./config/dataBase');
 const { cloudinaryConnect } = require('./config/cloudinary');
+const { loadAadharCache } = require('./config/aadharCache');
 const registrationRoutes = require('./routes/registration');
 const paymentRoutes = require('./routes/payment');
 
@@ -71,9 +72,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Connect to MongoDB, Cloudinary and start server
-connectDB().then(() => {
+// Connect to MongoDB, Cloudinary, load cache and start server
+connectDB().then(async () => {
     cloudinaryConnect();
+    await loadAadharCache(); // Load all Aadhars into memory for O(1) lookups
     app.listen(PORT, () => {
         console.log(`Server running on http://localhost:${PORT}`);
     });
