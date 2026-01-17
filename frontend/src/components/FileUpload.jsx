@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 
 const FileUpload = ({ label, name, onChange, required = false, error }) => {
   const [preview, setPreview] = useState(null);
@@ -14,7 +14,7 @@ const FileUpload = ({ label, name, onChange, required = false, error }) => {
       return "Only JPG, PNG, or WEBP images are allowed";
     }
     if (file.size > MAX_FILE_SIZE) {
-      return "File size must be less than 2MB";
+      return "File size must be less than 1MB";
     }
     return null;
   };
@@ -73,7 +73,7 @@ const FileUpload = ({ label, name, onChange, required = false, error }) => {
               color: "rgba(255, 255, 255, 0.6)",
             }}
           >
-            JPG, PNG, WEBP (Max 2MB)
+            JPG, PNG, WEBP (Max 1MB)
           </small>
         </div>
       ) : (
