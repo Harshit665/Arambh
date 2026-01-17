@@ -44,6 +44,14 @@ export const sportsData = [
         description: 'Long Jump - Individual participation',
       },
       {
+        id: 'test123',
+        name: 'Test123',
+        type: SPORT_TYPES.INDIVIDUAL,
+        teamSize: 1,
+        fee: 1,
+        description: 'Test123 Description',
+      },
+      {
         id: 'cycling',
         name: 'Cycling',
         type: SPORT_TYPES.INDIVIDUAL,
