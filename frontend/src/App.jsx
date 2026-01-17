@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import navLinks from "./data/navData";
-import Home from "./pages/Home";
-import Registration from "./pages/Registration/Registration";
-import SportDetail from "./pages/SportDetail/SportDetail";
-import AllSports from "./pages/AllSports/AllSports";
-import FeesAwards from "./pages/FeesAwards/FeesAwards";
-import Committee from "./pages/Committee/Committee";
-import Rules from "./pages/Rules/Rules";
-import CodeOfConduct from "./pages/CodeOfConduct/CodeOfConduct";
-import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
+import SportsLoader from "./components/SportsLoader";
+
+const Home = lazy(() => import("./pages/Home"));
+const Registration = lazy(() => import("./pages/Registration/Registration"));
+const SportDetail = lazy(() => import("./pages/SportDetail/SportDetail"));
+const AllSports = lazy(() => import("./pages/AllSports/AllSports"));
+const FeesAwards = lazy(() => import("./pages/FeesAwards/FeesAwards"));
+const Committee = lazy(() => import("./pages/Committee/Committee"));
+const Rules = lazy(() => import("./pages/Rules/Rules"));
+const CodeOfConduct = lazy(() => import("./pages/CodeOfConduct/CodeOfConduct"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy/RefundPolicy"));
 import Footer from "./components/Footer";
 
 function ScrollToHash() {
@@ -48,17 +50,19 @@ function App() {
     <>
       <ScrollToHash />
       <Navbar links={navLinks} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/sports" element={<AllSports />} />
-        <Route path="/sport/:sportId" element={<SportDetail />} />
-        <Route path="/fees-awards" element={<FeesAwards />} />
-        <Route path="/committee" element={<Committee />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/code-of-conduct" element={<CodeOfConduct />} />
-        <Route path="/refund-policy" element={<RefundPolicy />} />
-      </Routes>
+      <Suspense fallback={<SportsLoader fullScreen label="Loading page…" />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/sports" element={<AllSports />} />
+          <Route path="/sport/:sportId" element={<SportDetail />} />
+          <Route path="/fees-awards" element={<FeesAwards />} />
+          <Route path="/committee" element={<Committee />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/code-of-conduct" element={<CodeOfConduct />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
   );

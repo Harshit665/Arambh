@@ -1,19 +1,16 @@
 import "./Home.css";
 import Button from "../components/Button";
 import { homeHero, homeSponsors } from "../data/homeData";
-import SportsSection from "../sections/SportsSection";
-import ScheduleSection from "../sections/ScheduleSection";
-import ContactSection from "../sections/ContactSection";
 import { useNavigate } from "react-router-dom";
-import AagaazThinking from "../sections/AagaazThinking";
-import ChiefGuest from "../sections/ChiefGuest";
 import vcSir from "../assets/chief-guest/vc-image.jpeg";
 import deanSir from "../assets/chief-guest/dean-sir.jpeg";
 import financeOfficer from "../assets/chief-guest/financeOfficer.PNG";
 import registrarMam from "../assets/chief-guest/registrar-mam.jpeg";
-import {sportsManagers} from "../data/sportsManagerData.js"
-import SportsManagerCard from "../components/SportsManagerCard.jsx"
+import { sportsManagers } from "../data/sportsManagerData.js";
+import SportsManagerCard from "../components/SportsManagerCard.jsx";
 import { useMemo } from "react";
+import LazySection from "../components/LazySection";
+import SportsLoader from "../components/SportsLoader";
 
 // Generate fire bubbles data
 const generateFireBubbles = (count) => {
@@ -57,6 +54,15 @@ const members = [
 export default function Home() {
   const navigate = useNavigate();
   const fireBubbles = useMemo(() => generateFireBubbles(25), []);
+  const embers = useMemo(
+    () =>
+      Array.from({ length: 15 }, () => ({
+        left: Math.random() * 100,
+        delay: Math.random() * 8,
+        duration: Math.random() * 4 + 6,
+      })),
+    [],
+  );
 
   const [heroTitlePrimary, heroTitleSecondary] = homeHero.title.split(/:\s*/);
   const [heroSubPrimary, heroSubSecondary] =
@@ -87,14 +93,14 @@ export default function Home() {
 
       {/* Floating Embers */}
       <div className="embersContainer" aria-hidden="true">
-        {[...Array(15)].map((_, i) => (
+        {embers.map((ember, i) => (
           <div
             key={i}
             className="ember"
             style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${Math.random() * 4 + 6}s`,
+              left: `${ember.left}%`,
+              animationDelay: `${ember.delay}s`,
+              animationDuration: `${ember.duration}s`,
             }}
           />
         ))}
@@ -194,12 +200,39 @@ export default function Home() {
         sportName="Chess"
       /> */}
 
-      <ChiefGuest members={members} />
-      <AagaazThinking />
+      <LazySection
+        importer={() => import("../sections/ChiefGuest")}
+        componentProps={{ members }}
+        minHeight={280}
+        rootMargin="600px 0px"
+        fallback={<SportsLoader label="Warming up…" />}
+      />
 
-      <SportsSection />
-      <ScheduleSection />
-      <ContactSection />
+      <LazySection
+        importer={() => import("../sections/AagaazThinking")}
+        minHeight={220}
+        rootMargin="700px 0px"
+        fallback={<SportsLoader label="Setting the stage…" />}
+      />
+
+      <LazySection
+        importer={() => import("../sections/SportsSection")}
+        minHeight={320}
+        rootMargin="700px 0px"
+        fallback={<SportsLoader label="Loading sports…" />}
+      />
+      <LazySection
+        importer={() => import("../sections/ScheduleSection")}
+        minHeight={260}
+        rootMargin="700px 0px"
+        fallback={<SportsLoader label="Loading schedule…" />}
+      />
+      <LazySection
+        importer={() => import("../sections/ContactSection")}
+        minHeight={240}
+        rootMargin="700px 0px"
+        fallback={<SportsLoader label="Loading contact…" />}
+      />
     </div>
   );
 }
