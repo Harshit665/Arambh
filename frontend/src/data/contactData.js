@@ -31,19 +31,19 @@ export const contactCards = [
   {
     key: "2",
     name: "Dr. Rakesh Kumar Singh",
-    role: "Director",
+    role: "Director,Second Campus",
     imageSrc: RakeshKumarSingh,
   },
   {
     key: "3",
     name: "Prof. Anurag K. Srivastava",
-    role: "Sports Incharge",
+    role: "Incharge, Sports,Second Campus",
     imageSrc: AnuragShrivastava,
   },
   {
     key: "4",
     name: "Dr. Mohmmad Ahmad",
-    role: "Additional Proctor New Campus",
+    role: "Additional Proctor Second Campus",
     imageSrc: Ahmad,
   },
   {
@@ -61,7 +61,7 @@ export const contactCards = [
   {
     key: "7",
     name: "Prof. Anurag K. Srivastava",
-    role: "Sports Incharge",
+    role: "Incharge, Sports & Gymnasium,Second Campus",
     imageSrc: AnuragShrivastava,
   },
   {
