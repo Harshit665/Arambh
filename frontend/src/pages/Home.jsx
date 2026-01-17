@@ -11,6 +11,8 @@ import vcSir from "../assets/chief-guest/vc-image.jpeg";
 import deanSir from "../assets/chief-guest/dean-sir.jpeg";
 import financeOfficer from "../assets/chief-guest/financeOfficer.PNG";
 import registrarMam from "../assets/chief-guest/registrar-mam.jpeg";
+import {sportsManagers} from "../data/sportsManagerData.js"
+import SportsManagerCard from "../components/SportsManagerCard.jsx"
 import { useMemo } from "react";
 
 // Generate fire bubbles data
@@ -186,6 +188,11 @@ export default function Home() {
           Live scores will be available when events are live
         </p>
       </section>
+
+      {/* <SportsManagerCard
+        manager={sportsManagers.chess}
+        sportName="Chess"
+      /> */}
 
       <ChiefGuest members={members} />
       <AagaazThinking />
