@@ -37,7 +37,7 @@ export const contactCards = [
   {
     key: "3",
     name: "Prof. Anurag K. Srivastava",
-    role: "Sports",
+    role: "Sports Incharge",
     imageSrc: AnuragShrivastava,
   },
   {

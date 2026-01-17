@@ -37,12 +37,12 @@ const members = [
     role: "University of Lucknow",
     image: deanSir,
   },
-  {
-    name: "Dr. Bhavna Mishra",
-    designation: "Registrar",
-    role: "University of Lucknow",
-    image: registrarMam,
-  },
+  // {
+  //   name: "Dr. Bhavna Mishra",
+  //   designation: "Registrar",
+  //   role: "University of Lucknow",
+  //   image: registrarMam,
+  // },
   {
     name: "Ms. Himani Chaudhary",
     designation: "Finance Officer",
@@ -155,12 +155,12 @@ export default function Home() {
           </p>
 
           <div className="heroCtaRow">
-            {/* <Button onClick={() => navigate("/register")}>
+            <Button onClick={() => navigate("/register")}>
               {homeHero.ctaText}
-            </Button> */}
-            <Button className="flickerButton">
-              Registrations will <br /> start soon
             </Button>
+            {/* <Button className="flickerButton">
+              Registrations will <br /> start soon
+            </Button> */}
             <Button onClick={() => navigate("/rules")}>
               Rules & Regulations
             </Button>

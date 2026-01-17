@@ -196,6 +196,10 @@ export default function Registration() {
               position: "top-center",
             });
             setSelectedSport(null);
+            // Redirect to home page after successful registration
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
           } else {
             if (verifyResult.error?.includes("already registered")) {
               toast.error("This Aadhar is already registered!", {

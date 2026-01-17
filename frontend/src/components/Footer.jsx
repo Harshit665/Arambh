@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   faInstagram,
-  faLinkedinIn,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
@@ -43,20 +42,17 @@ export default function Footer() {
               className="footerIconBtn"
               href={footerData.socials.instagram}
               aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FontAwesomeIcon className="footerIcon" icon={faInstagram} />
             </a>
             <a
               className="footerIconBtn"
-              href={footerData.socials.linkedin}
-              aria-label="LinkedIn"
-            >
-              <FontAwesomeIcon className="footerIcon" icon={faLinkedinIn} />
-            </a>
-            <a
-              className="footerIconBtn"
               href={footerData.socials.twitter}
               aria-label="Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FontAwesomeIcon className="footerIcon" icon={faXTwitter} />
             </a>
@@ -78,6 +74,11 @@ export default function Footer() {
           <Link to="/refund-policy" className="footerPolicyLink">
             Refund Policy
           </Link>
+          <span className="footerLinkDivider">|</span>
+          <span className="footerPolicyLink">
+            For any technical issue contact:{" "}
+            <a href="tel:8127155421">8127155421</a>
+          </span>
         </div>
 
         <div className="footerBottom">

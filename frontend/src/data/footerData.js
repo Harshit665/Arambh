@@ -11,9 +11,8 @@ export const footerData = {
     { label: "Contact", href: "#contact" },
   ],
   socials: {
-    instagram: "#",
-    linkedin: "#",
-    twitter: "#",
-    email: "mailto:hello@example.com",
+    instagram: "https://www.instagram.com/sports.council.foet",
+    twitter: "https://x.com/sports_club_LU",
+    email: "mailto:sports.council.lu@gmail.com",
   },
 };
